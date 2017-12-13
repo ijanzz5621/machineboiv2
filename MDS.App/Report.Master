@@ -1,0 +1,116 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Report.master.vb" Inherits="MDS.App.Report" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Machine Database System</title>
+
+    <link href="/Content/datepicker.css" rel="stylesheet" />
+    <link href="/Content/jquery-confirm.min.css" rel="stylesheet" />
+    <link href="/Content/holdon.css" rel="stylesheet" />   
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body style="padding: 10px;">
+    <form id="form1" runat="server">
+
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">MDS</a>
+                </div>
+                <ul class="nav navbar-nav nav-pills nav-stacked">
+                    <li class="active"><a href="/Pages/MainPage.aspx">Home</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Data Maintenance
+                <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Pages/DataMaintenance/BOIList.aspx">BOI Info Listing</a></li>
+                            <li><a href="/Pages/DataMaintenance/EntryImportList.aspx">Entry Import</a></li>
+                            <li><a href="/Pages/DataMaintenance/SubEntryImportList.aspx">Sub-Entry Import</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Setup
+                <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Pages/Setup/BOIList.aspx">BOI Master</a></li>
+                            <li><a href="/Pages/Setup/InvoiceInfoList.aspx">Invoice Info</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports
+                <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Pages/Reports/BOICommencement.aspx">BOI Commencement</a></li>
+                            <li><a href="/Pages/Reports/MachineInspection.aspx">Machine Inspection</a></li>
+                            <li><a href="/Pages/Reports/MachineScrap.aspx">Machine Scrap</a></li>  
+                            <li><a href="/Pages/Reports/SummaryByEquipmentType.aspx">Summary By Equipment Type</a></li>
+                            <li><a href="/Pages/Reports/SummaryByEquipmentModel.aspx">Summary By Equipment Model</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <%--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>--%>
+                    <%--<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>--%>
+                    <li>
+                        <a>Welcome <%= Session("USER_NAME") %>!</a>
+                    </li>
+                    <li>
+                        <%--<asp:HyperLink ID="hlLogin" runat="server" NavigateUrl="~/Default.aspx" ><span class="glyphicon glyphicon-log-in"></span> Logout</asp:HyperLink>--%>
+                        <asp:LinkButton ID="lbtnLogout" runat="server"><span class="glyphicon glyphicon-log-in"></span> Logout</asp:LinkButton>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div style="padding-top: 40px;">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+
+    <script src="/Scripts/ie9/html5shiv.js"></script>
+    <script src="/Scripts/ie9/respond.min.js"></script>    
+    <script src="/Scripts/jquery-confirm.min.js"></script>
+    <script src="/Scripts/holdon.js"></script>
+
+</body>
+</html>
