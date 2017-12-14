@@ -77,34 +77,64 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
 
-                    alert(data.d);
+                    //alert(data.d);
+                    var tempData = JSON.parse(data.d);
+                    var colIndex = [];
 
                     // clear the table
                     $('#tblListing thead tr').html("");
                     $('#tblListing tbody').html("");
 
-                    if (JSON.parse(data.d).length > 0) {
-
-                        for (var key in JSON.parse(data.d)[0]) {
-                            $('#tblListing thead tr').append("<td>" + key + "</td>");
+                    if (tempData.length > 0) {
+                        for (var key in tempData[0]) {
+                            //console.log(key);
+                            if (key === "EQUIPMENT_TYPE")
+                                $('#tblListing thead tr').append("<td>" + key + "</td>");
                         }
+
+                        for (var key in tempData[0]) {
+                            //console.log(key);
+                            if (key !== "EQUIPMENT_TYPE") {
+                                colIndex.push(key);
+                                $('#tblListing thead tr').append("<td>" + key + "</td>");
+                            }
+                                
+                        }
+
+                        //console.log(colIndex);
+
                         var row = "";
                         var rowCount = 0;
-                        $.each(JSON.parse(data.d), function (key, val) {
+                        $.each(tempData, function (key, val) {
 
+                            var keyName = "";
                             var rowColor = "transparent";
                             if (rowCount % 2 === 0)
                                 rowColor = "#fff";
 
                             row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "'>";
                             $.each(val, function (_, text) {
-                                row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
+                                if (_ === "EQUIPMENT_TYPE") {
+                                    keyName = text;
+                                    row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
+                                }
                             });
+
+                            var dataColIndex = 0;
+                            $.each(val, function (_, text) {
+                                //console.log(val);
+                                dataColIndex++;
+                                if (_ !== "EQUIPMENT_TYPE") {
+                                    row = row + "<td" + ((text === null || text === 0) ? "" : " style='background-color:#ACECFF; text-align:center;font-weight:bold;'") + ">" + ((text === null || text === 0) ? "" : "<a href='#' onclick='loadDetails(\"" + keyName + "\", \"" + _ + "\");'>" + text + "</a>") + "</td>";
+                                }
+                            });
+
                             row = row + "</tr>";
 
                             rowCount++;
                         });
                         $('#tblListing tbody').append(row);
+
                     } else {
                         //showPopupMessage("No data found!");
                     }
@@ -121,6 +151,10 @@
                 }
             });
 
+        }
+
+        function loadDetails(_equipmentType, _boiNo) {
+            alert("Equipment Type: " + _equipmentType + ", BOI No#: " + _boiNo);
         }
 
 
