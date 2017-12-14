@@ -79,7 +79,6 @@
 
                     //alert(data.d);
                     var tempData = JSON.parse(data.d);
-                    var colIndex = [];
 
                     // clear the table
                     $('#tblListing thead tr').html("");
@@ -95,13 +94,10 @@
                         for (var key in tempData[0]) {
                             //console.log(key);
                             if (key !== "EQUIPMENT_TYPE") {
-                                colIndex.push(key);
                                 $('#tblListing thead tr').append("<td>" + key + "</td>");
                             }
                                 
                         }
-
-                        //console.log(colIndex);
 
                         var row = "";
                         var rowCount = 0;
@@ -120,10 +116,7 @@
                                 }
                             });
 
-                            var dataColIndex = 0;
                             $.each(val, function (_, text) {
-                                //console.log(val);
-                                dataColIndex++;
                                 if (_ !== "EQUIPMENT_TYPE") {
                                     row = row + "<td" + ((text === null || text === 0) ? "" : " style='background-color:#ACECFF; text-align:center;font-weight:bold;'") + ">" + ((text === null || text === 0) ? "" : "<a href='#' onclick='loadDetails(\"" + keyName + "\", \"" + _ + "\");'>" + text + "</a>") + "</td>";
                                 }
@@ -154,7 +147,8 @@
         }
 
         function loadDetails(_equipmentType, _boiNo) {
-            alert("Equipment Type: " + _equipmentType + ", BOI No#: " + _boiNo);
+            //alert("Equipment Type: " + _equipmentType + ", BOI No#: " + _boiNo);
+            window.open('/Pages/Reports/SummaryByEquipmentTypeDetails.aspx?EquipmentType=' + _equipmentType + '&BoiNo=' + _boiNo, '_blank');
         }
 
 

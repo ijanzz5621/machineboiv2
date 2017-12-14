@@ -224,6 +224,7 @@
     <Content Include="Pages\Reports\MachineInspection.aspx" />
     <Content Include="Pages\Reports\BOICommencement.aspx" />
     <Content Include="Pages\Reports\SummaryByEquipmentType.aspx" />
+    <Content Include="Pages\Reports\SummaryByEquipmentTypeDetails.aspx" />
     <Content Include="Pages\Setup\BOI.aspx" />
     <Content Include="Pages\Setup\BOIList.aspx" />
     <Content Include="Pages\Setup\InvoiceInfo.aspx" />
@@ -453,6 +454,13 @@
     <Compile Include="Pages\Reports\SummaryByEquipmentType.aspx.vb">
       <DependentUpon>SummaryByEquipmentType.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Reports\SummaryByEquipmentTypeDetails.aspx.designer.vb">
+      <DependentUpon>SummaryByEquipmentTypeDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Reports\SummaryByEquipmentTypeDetails.aspx.vb">
+      <DependentUpon>SummaryByEquipmentTypeDetails.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Pages\Setup\BOI.aspx.designer.vb">
       <DependentUpon>BOI.aspx</DependentUpon>
