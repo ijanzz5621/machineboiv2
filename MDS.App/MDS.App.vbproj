@@ -223,6 +223,7 @@
     <Content Include="Pages\Reports\MachineScrap.aspx" />
     <Content Include="Pages\Reports\MachineInspection.aspx" />
     <Content Include="Pages\Reports\BOICommencement.aspx" />
+    <Content Include="Pages\Reports\SummaryByEquipmentModel.aspx" />
     <Content Include="Pages\Reports\SummaryByEquipmentType.aspx" />
     <Content Include="Pages\Reports\SummaryByEquipmentTypeDetails.aspx" />
     <Content Include="Pages\Setup\BOI.aspx" />
@@ -446,6 +447,13 @@
     </Compile>
     <Compile Include="Pages\Reports\BOICommencement.aspx.vb">
       <DependentUpon>BOICommencement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Reports\SummaryByEquipmentModel.aspx.designer.vb">
+      <DependentUpon>SummaryByEquipmentModel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Reports\SummaryByEquipmentModel.aspx.vb">
+      <DependentUpon>SummaryByEquipmentModel.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Pages\Reports\SummaryByEquipmentType.aspx.designer.vb">
