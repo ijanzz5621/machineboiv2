@@ -23,67 +23,67 @@ Partial Public Class BOICommencement
     Protected WithEvents lblError As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''txtBOINo control.
+    '''ddlBOINumber control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtBOINo As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlBOINumber As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''txtImportDate control.
+    '''ddlGoodsType control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtImportDate As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlGoodsType As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''TextBoxM control.
+    '''ddlXmlType control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TextBoxM As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlXmlType As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''txtInvoiceNo control.
+    '''ddlEquipmentType control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtInvoiceNo As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlEquipmentType As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''txtDescription control.
+    '''txtImportDateFrom control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtDescription As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtImportDateFrom As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txtEquipmentId control.
+    '''txtImportDateTo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtEquipmentId As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtImportDateTo As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txtAssetTag control.
+    '''txtMultiFilter control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtAssetTag As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtMultiFilter As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''btnSearch control.
