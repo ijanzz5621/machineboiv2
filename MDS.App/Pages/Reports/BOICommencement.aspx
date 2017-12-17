@@ -109,7 +109,11 @@
                     <asp:BoundField DataField="DOCUMENT_DATE" HeaderText="Document Date" DataFormatString="{0:yyyy-MM-dd}" />
                     <asp:BoundField DataField="AMOUNT" HeaderText="Amount (THB)" DataFormatString="{0:c}" />
                     <asp:BoundField DataField="JOB_NUMBER" HeaderText="Job No#" />
-                    <asp:BoundField DataField="XMLTYPE" HeaderText="XML Type" />                    
+                    <asp:BoundField DataField="XMLTYPE" HeaderText="XML Type" />  
+                    <asp:BoundField DataField="EQUIPMENT_TYPE" HeaderText="Equipment Type" />
+                    <asp:BoundField DataField="PO_NUMBER" HeaderText="PO Number" />
+                    <asp:BoundField DataField="CAR_NUMBER" HeaderText="Car Number" />
+                    <asp:BoundField DataField="H_S_CODE" HeaderText="HS Code" />
                     <asp:TemplateField HeaderText="Invoice File">
                         <ItemTemplate>
                             <asp:HiddenField ID="hidRawFileInvoice" Value='<%# Eval("download_inv").ToString() %>' runat="server" />

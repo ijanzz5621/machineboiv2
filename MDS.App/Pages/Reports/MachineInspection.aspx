@@ -8,97 +8,97 @@
 
     <div class="row">
 
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;">  
-            BOI No#          
-        </div>
         <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:TextBox ID="txtBOINo" runat="server" CssClass="form-control" ReadOnly="false" MaxLength="100"></asp:TextBox>
+            BOI No# <br />
+            <asp:DropDownList ID="ddlBOINumber" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                <asp:ListItem Text="" Value=""></asp:ListItem>
+            </asp:DropDownList>
         </div>
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;"> 
-            Import Date           
-        </div>
+
+        <%--<div class="col-md-2 col-sm-4" style="margin-top:10px;">
+            Goods Type <br />
+            <asp:DropDownList ID="ddlGoodsType" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                <asp:ListItem Text="" Value=""></asp:ListItem>
+            </asp:DropDownList>
+        </div>--%>
+
         <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:TextBox ID="txtImportDate" runat="server" CssClass="form-control datepicker" ReadOnly="false" MaxLength="50" data-date-format="yyyy-mm-dd"></asp:TextBox>
-        </div>        
+            XML Type <br />
+            <asp:DropDownList ID="ddlXmlType" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                <asp:ListItem Text="" Value=""></asp:ListItem>
+            </asp:DropDownList>
+        </div>
+
+        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
+            Equipment Type <br />
+            <asp:DropDownList ID="ddlEquipmentType" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                <asp:ListItem Text="" Value=""></asp:ListItem>
+            </asp:DropDownList>
+        </div>
+
+        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
+            Inspection <br />
+            <asp:DropDownList ID="ddlInspection" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                <asp:ListItem Text="" Value=""></asp:ListItem>
+            </asp:DropDownList>
+        </div>
+
+        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
+            Address <br />
+            <asp:DropDownList ID="ddlAddress" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                <asp:ListItem Text="" Value=""></asp:ListItem>
+            </asp:DropDownList>
+        </div>
+
+        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
+            CER No# <br />
+            <asp:DropDownList ID="ddlCERNo" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                <asp:ListItem Text="" Value=""></asp:ListItem>
+            </asp:DropDownList>
+        </div>
 
     </div>
 
     <div class="row">
 
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;">  
-            Invoice No#          
-        </div>
         <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:TextBox ID="txtInvoiceNo" runat="server" CssClass="form-control" ReadOnly="false" MaxLength="100"></asp:TextBox>
-        </div>
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;"> 
-            Description           
-        </div>
+            Import Date From <br />
+            <asp:TextBox ID="txtImportDateFrom" runat="server" CssClass="form-control datepicker" ReadOnly="false" MaxLength="50" data-date-format="yyyy-mm-dd"></asp:TextBox>
+        </div> 
+        
         <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" ReadOnly="false" MaxLength="50"></asp:TextBox>
-        </div>        
+            Import Date To <br />
+            <asp:TextBox ID="txtImportDateTo" runat="server" CssClass="form-control datepicker" ReadOnly="false" MaxLength="50" data-date-format="yyyy-mm-dd"></asp:TextBox>
+        </div> 
+
+        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
+            Machine Age From <br />
+            <asp:TextBox ID="txtMachineAgeFrom" runat="server" CssClass="form-control" ReadOnly="false" TextMode="Number"></asp:TextBox>
+        </div> 
+        
+        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
+            Machine Age To <br />
+            <asp:TextBox ID="txtMachineAgeTo" runat="server" CssClass="form-control" ReadOnly="false" TextMode="Number"></asp:TextBox>
+        </div> 
 
     </div>
 
     <div class="row">
 
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;">  
-            Equipment ID         
-        </div>
-        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:TextBox ID="txtEquipmentId" runat="server" CssClass="form-control" ReadOnly="false" TextMode="Number"></asp:TextBox>
-        </div>
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;"> 
-            Asset Tag           
-        </div>
-        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:TextBox ID="txtAssetTag" runat="server" CssClass="form-control" ReadOnly="false" MaxLength="10"></asp:TextBox>
-        </div>        
+        
 
-    </div>    
+    </div>
 
     <div class="row">
 
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;">  
-            Inspection Desc         
-        </div>
-        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:DropDownList ID="ddlInspection" runat="server" CssClass="form-control" 
-                DataTextField="inspection_desc" DataValueField="inspection_desc" AppendDataBoundItems="true">
-                <asp:ListItem Value="">-- Please Select--</asp:ListItem>
-            </asp:DropDownList>
-        </div>
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;"> 
-            Factory           
-        </div>
-        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:DropDownList ID="ddlFactory" runat="server" CssClass="form-control" 
-                DataTextField="FACTORY" DataValueField="FACTORY" AppendDataBoundItems="true">
-                <asp:ListItem Value="">-- Please Select--</asp:ListItem>
-            </asp:DropDownList>
-        </div>        
+        <div class="col-md-6 col-sm-12" style="margin-top:10px;">
 
-    </div>  
+            Car Number, PO, Description, Asset Tag, Serial No, Equipment ID, Country Origin Invoice No, Equipment Brand, Vendor <br />
+            <asp:TextBox ID="txtMultiFilter" runat="server" CssClass="form-control" ReadOnly="false" MaxLength="100"></asp:TextBox>
 
-    <div class="row">
+        </div>
 
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;">  
-            Equipment Type         
-        </div>
-        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:DropDownList ID="ddlEquipmentType" runat="server" CssClass="form-control" 
-                DataTextField="equipment_type" DataValueField="equipment_type" AppendDataBoundItems="true">
-                <asp:ListItem Value="">-- Please Select--</asp:ListItem>
-            </asp:DropDownList>
-        </div>
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;"> 
-            &nbsp;           
-        </div>
-        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            &nbsp;
-        </div>        
-
-    </div>  
+    </div>
 
     <div class="row">
 
@@ -150,7 +150,10 @@
                     <asp:BoundField DataField="LINE" HeaderText="Line" />
                     <asp:BoundField DataField="VENDOR_NUMBER" HeaderText="Vendor" />
                     <asp:BoundField DataField="ADDRESS" HeaderText="Address" />
-                    <asp:BoundField DataField="EQUIPMENT_TYPE" HeaderText="Equip Type" />                                        
+                    <asp:BoundField DataField="EQUIPMENT_TYPE" HeaderText="Equip Type" />  
+                    <asp:BoundField DataField="PO_NUMBER" HeaderText="PO No#" />
+                    <asp:BoundField DataField="CAR_NUMBER" HeaderText="Car No#" />
+                    <asp:BoundField DataField="MACHINE_AGE" HeaderText="Machine Age (Year)" />
                     <asp:TemplateField HeaderText="Invoice File">
                         <ItemTemplate>
                             <asp:HiddenField ID="hidRawFileInvoice" Value='<%# Eval("download_inv").ToString() %>' runat="server" />

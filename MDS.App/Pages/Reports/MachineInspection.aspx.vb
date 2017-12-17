@@ -11,15 +11,16 @@ Public Class MachineInspection
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
-            GetFactory()
-            GetInspectionDesc()
-            GetEquipmentType()
+            GetBOINumberList()
+            GetXmlTypeList()
+            GetEquipmentTypeList()
         End If
     End Sub
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-        GetListing(txtBOINo.Text, txtImportDate.Text, txtInvoiceNo.Text, txtDescription.Text, txtEquipmentId.Text, txtAssetTag.Text,
-                   ddlFactory.SelectedValue, ddlInspection.SelectedValue, ddlEquipmentType.SelectedValue)
+        'GetListing(txtBOINo.Text, txtImportDate.Text, txtInvoiceNo.Text, txtDescription.Text, txtEquipmentId.Text, txtAssetTag.Text,
+        '           ddlFactory.SelectedValue, ddlInspection.SelectedValue, ddlEquipmentType.SelectedValue)
+        GetListing(ddlBOINumber.SelectedValue, "", ddlXmlType.SelectedValue, ddlEquipmentType.SelectedValue, txtImportDateFrom.Text, txtImportDateTo.Text, txtMultiFilter.Text)
     End Sub
 
     Protected Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
@@ -45,28 +46,25 @@ Public Class MachineInspection
 
 #Region "Functions"
 
-    Private Sub GetFactory()
+    Private Sub GetBOINumberList()
 
         Try
 
             GetAppConfig()
             OpenConnection()
 
-            Dim sSQL = "select distinct factory from tbl_boinumber "
-
+            Dim sSQL = "select distinct BOI_NUMBER from TBL_BOINUMBER order by BOI_NUMBER"
             Dim dsResult As DataSet = oOra.OraExecuteQuery(sSQL, cnnOra)
 
-            If dsResult.Tables.Count > 0 And dsResult.Tables(0).Rows.Count > 0 Then
-
-                ddlFactory.DataSource = dsResult.Tables(0)
-                ddlFactory.DataBind()
-
-            End If
-
+            ddlBOINumber.DataSource = dsResult.Tables(0)
+            ddlBOINumber.DataTextField = "BOI_NUMBER"
+            ddlBOINumber.DataValueField = "BOI_NUMBER"
+            ddlBOINumber.DataBind()
 
         Catch ex As Exception
 
             Dim errorMsg As String = ex.Message
+            lblError.Text = errorMsg
 
         Finally
 
@@ -76,28 +74,53 @@ Public Class MachineInspection
 
     End Sub
 
-    Private Sub GetInspectionDesc()
+    'Private Sub GetGoodsTypeList()
+
+    '    Try
+
+    '        GetAppConfig()
+    '        OpenConnection()
+
+    '        Dim sSQL = "select GOOD_TYPE_CODE, GOOD_TYPE_DESC from TBL_BOIGOODTYPESCODE order by GOOD_TYPE_DESC"
+    '        Dim dsResult As DataSet = oOra.OraExecuteQuery(sSQL, cnnOra)
+
+    '        ddlGoodsType.DataSource = dsResult.Tables(0)
+    '        ddlGoodsType.DataTextField = "GOOD_TYPE_DESC"
+    '        ddlGoodsType.DataValueField = "GOOD_TYPE_CODE"
+    '        ddlGoodsType.DataBind()
+
+    '    Catch ex As Exception
+
+    '        Dim errorMsg As String = ex.Message
+    '        lblError.Text = errorMsg
+
+    '    Finally
+
+    '        CloseConnection()
+
+    '    End Try
+
+    'End Sub
+
+    Private Sub GetXmlTypeList()
 
         Try
 
             GetAppConfig()
             OpenConnection()
 
-            Dim sSQL = "select distinct inspection_desc from TBL_BOIINSPECTIONCODE "
-
+            Dim sSQL = "select distinct XMLTYPE from TBL_BOIINFO order by XMLTYPE"
             Dim dsResult As DataSet = oOra.OraExecuteQuery(sSQL, cnnOra)
 
-            If dsResult.Tables.Count > 0 And dsResult.Tables(0).Rows.Count > 0 Then
-
-                ddlInspection.DataSource = dsResult.Tables(0)
-                ddlInspection.DataBind()
-
-            End If
-
+            ddlXmlType.DataSource = dsResult.Tables(0)
+            ddlXmlType.DataTextField = "XMLTYPE"
+            ddlXmlType.DataValueField = "XMLTYPE"
+            ddlXmlType.DataBind()
 
         Catch ex As Exception
 
             Dim errorMsg As String = ex.Message
+            lblError.Text = errorMsg
 
         Finally
 
@@ -107,28 +130,25 @@ Public Class MachineInspection
 
     End Sub
 
-    Private Sub GetEquipmentType()
+    Private Sub GetEquipmentTypeList()
 
         Try
 
             GetAppConfig()
             OpenConnection()
 
-            Dim sSQL = "select distinct equipment_type from v_equipment "
-
+            Dim sSQL = "select distinct EQUIPMENT_TYPE from v_equipment order by EQUIPMENT_TYPE"
             Dim dsResult As DataSet = oOra.OraExecuteQuery(sSQL, cnnOra)
 
-            If dsResult.Tables.Count > 0 And dsResult.Tables(0).Rows.Count > 0 Then
-
-                ddlEquipmentType.DataSource = dsResult.Tables(0)
-                ddlEquipmentType.DataBind()
-
-            End If
-
+            ddlEquipmentType.DataSource = dsResult.Tables(0)
+            ddlEquipmentType.DataTextField = "EQUIPMENT_TYPE"
+            ddlEquipmentType.DataValueField = "EQUIPMENT_TYPE"
+            ddlEquipmentType.DataBind()
 
         Catch ex As Exception
 
             Dim errorMsg As String = ex.Message
+            lblError.Text = errorMsg
 
         Finally
 
@@ -138,9 +158,7 @@ Public Class MachineInspection
 
     End Sub
 
-    Private Function GetListing(boiNo As String, importDate As String, invoiceNo As String, desc As String,
-                           equipmentId As String, assetTag As String, factory As String, inspectionDesc As String,
-                           equipmentType As String) As DataSet
+    Private Function GetListing(boiNo As String, goodsType As String, xmlType As String, equipmentType As String, importDateFrom As String, ImportDateTo As String, multiFilter As String) As DataSet
         Dim dsResult As DataSet = Nothing
         Try
 
@@ -153,6 +171,10 @@ Public Class MachineInspection
             sSQL = sSQL & "b.address, d.equipment_type, "
             sSQL = sSQL & "replace(f.raw_filepath, 'D:\Application\AspNet\mds\Files\Invoice\', '') AS download_inv, "
             sSQL = sSQL & "replace(b.raw_filepath, 'D:\Application\AspNet\mds\Files\Entry\', '') AS download_import "
+
+            sSQL = sSQL & ", f.PO_NUMBER, CAR_NUMBER "
+            sSQL = sSQL & ", to_number(EXTRACT(YEAR FROM b.IMPORT_DATE)) - to_number(d.manufacturer_year) AS MACHINE_AGE "
+
             sSQL = sSQL & "FROM TBL_BOIINFO a "
             sSQL = sSQL & "LEFT OUTER JOIN (SELECT t1.*,t2.ITEM_NUMBER,t2.ORIGIN_CONTRY , t2.AMOUNT, t2.TAX_VALUE, t2.VAT_VALUE, t2.TAX_RAT_PERCENT,t2.H_S_CODE ,t2.INVOICE_NUMBER,t2.INVOICE_ITEM "
             sSQL = sSQL & "FROM TBL_BOIIMPORTENTRY t1, TBL_BOIIMPORTSUBENTRY t2 WHERE t2.IMPORT_ENTRY_NUMBER = t1.IMPORT_ENTRY_NUMBER) b on a.INVOICE_NUMBER = b.INVOICE_NUMBER And a.INVOICE_ITEM = b.INVOICE_ITEM "
@@ -162,43 +184,47 @@ Public Class MachineInspection
             sSQL = sSQL & "LEFT OUTER JOIN TBL_BOIINVOICEINFO f ON a.invoice_number = f.invoice_number "
             sSQL = sSQL & "LEFT OUTER JOIN TBL_BOIINSPECTIONCODE g ON a.inspection_code = g.inspection_code "
             sSQL = sSQL & "WHERE a.good_type_code = '02' AND 1=1 "
-            'And ROWNUM <= 500 "
 
             'Filtering
             If boiNo.Trim <> "" Then
-                sSQL = sSQL & "And c.BOI_NUMBER = '" & boiNo & "' "
+                sSQL = sSQL & "And a.BOI_NUMBER = '" & boiNo & "' "
             End If
 
-            If importDate.Trim <> "" Then
-                sSQL = sSQL & "AND to_char(b.IMPORT_DATE, 'yyyy-MM-dd') = '" & DateTime.Parse(importDate).ToString("yyyy-MM-dd") & "' "
+            If importDateFrom.Trim <> "" And ImportDateTo.Trim <> "" Then
+                sSQL = sSQL & "And to_char(b.IMPORT_DATE, 'yyyy-MM-dd') between '" & DateTime.Parse(importDateFrom).ToString("yyyy-MM-dd") & "' And '" & DateTime.Parse(ImportDateTo).ToString("yyyy-MM-dd") & "' "
             End If
 
-            If invoiceNo.Trim <> "" Then
-                sSQL = sSQL & "AND a.INVOICE_NUMBER = '" & invoiceNo & "' "
+            If goodsType.Trim <> "" Then
+                sSQL = sSQL & "And a.good_type_code = '" & goodsType & "' "
             End If
 
-            If desc.Trim <> "" Then
-                sSQL = sSQL & "AND UPPER(a.DESCRIPTION) LIKE '%" & desc.ToUpper & "%' "
-            End If
-
-            If equipmentId.Trim <> "" Then
-                sSQL = sSQL & "AND d.equipment_id = '" & equipmentId & "' "
-            End If
-
-            If assetTag.Trim <> "" Then
-                sSQL = sSQL & "AND d.asset_tag = '" & assetTag & "' "
-            End If
-
-            If factory.Trim <> "" Then
-                sSQL = sSQL & "AND c.factory = '" & factory & "' "
-            End If
-
-            If inspectionDesc.Trim <> "" Then
-                sSQL = sSQL & "AND g.inspection_desc = '" & inspectionDesc & "' "
+            If xmlType.Trim <> "" Then
+                sSQL = sSQL & "And a.xmltype = '" & xmlType & "' "
             End If
 
             If equipmentType.Trim <> "" Then
-                sSQL = sSQL & "AND d.equipment_type = '" & equipmentType & "' "
+                sSQL = sSQL & "And d.EQUIPMENT_TYPE = '" & equipmentType & "' "
+            End If
+
+            If multiFilter.Trim <> "" Then
+
+                sSQL = sSQL & "And ( "
+                sSQL = sSQL & "UPPER(f.CAR_NUMBER) Like '%" & multiFilter.ToUpper & "%' "
+                sSQL = sSQL & "Or UPPER(f.PO_NUMBER) Like '%" & multiFilter.ToUpper & "%' "
+                sSQL = sSQL & "Or UPPER(a.description) Like '%" & multiFilter.ToUpper & "%' "
+                sSQL = sSQL & "Or UPPER(d.asset_tag) Like '%" & multiFilter.ToUpper & "%' "
+                sSQL = sSQL & "Or UPPER(d.serial_no) Like '%" & multiFilter.ToUpper & "%' "
+                sSQL = sSQL & "Or UPPER(d.equipment_id) Like '%" & multiFilter.ToUpper & "%' "
+                'sSQL = sSQL & "Or UPPER(b.ship_from) Like '%" & multiFilter.ToUpper & "%' "
+                ' country origin
+                sSQL = sSQL & "Or UPPER(a.invoice_number) Like '%" & multiFilter.ToUpper & "%' "
+                'sSQL = sSQL & "Or UPPER(a.document_number) Like '%" & multiFilter.ToUpper & "%' "
+                ' equipment brand
+                'sSQL = sSQL & "Or UPPER(b.job_number) Like '%" & multiFilter.ToUpper & "%' "
+                ' vendor
+                sSQL = sSQL & ") "
+
+
             End If
 
             'Dim dsResult As DataSet = oOra.OraExecuteQuery(sSQL, cnnOra)
@@ -227,8 +253,7 @@ Public Class MachineInspection
     End Function
 
     Private Sub gvListing_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles gvListing.PageIndexChanging
-        Dim ds As DataSet = GetListing(txtBOINo.Text, txtImportDate.Text, txtInvoiceNo.Text, txtDescription.Text, txtEquipmentId.Text, txtAssetTag.Text,
-                   ddlFactory.SelectedValue, ddlInspection.SelectedValue, ddlEquipmentType.SelectedValue)
+        Dim ds As DataSet = GetListing(ddlBOINumber.SelectedValue, "", ddlXmlType.SelectedValue, ddlEquipmentType.SelectedValue, txtImportDateFrom.Text, txtImportDateTo.Text, txtMultiFilter.Text)
 
         gvListing.PageIndex = e.NewPageIndex
         gvListing.DataSource = ds
@@ -247,8 +272,7 @@ Public Class MachineInspection
 
             'To Export all pages
             gvListing.AllowPaging = False
-            Me.GetListing(txtBOINo.Text, txtImportDate.Text, txtInvoiceNo.Text, txtDescription.Text, txtEquipmentId.Text,
-                          txtAssetTag.Text, ddlFactory.SelectedValue, ddlInspection.SelectedValue, ddlEquipmentType.SelectedValue)
+            Me.GetListing(ddlBOINumber.SelectedValue, "", ddlXmlType.SelectedValue, ddlEquipmentType.SelectedValue, txtImportDateFrom.Text, txtImportDateTo.Text, txtMultiFilter.Text)
 
             gvListing.HeaderRow.BackColor = System.Drawing.Color.White
             For Each cell As TableCell In gvListing.HeaderRow.Cells

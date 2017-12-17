@@ -173,6 +173,10 @@ Public Class BOICommencement
             sSQL = sSQL & "b.import_date, a.invoice_number, a.invoice_date, a.document_number, a.document_date, "
             sSQL = sSQL & "b.amount, b.job_number, a.xmltype, "
             sSQL = sSQL & "replace(f.raw_filepath, 'D:\Application\AspNet\mds\Files\Invoice\', '') AS download_inv, replace(b.raw_filepath, 'D:\Application\AspNet\mds\Files\Entry\', '') AS download_import "
+
+            ' Added by Sharizan on 10Dec2017 1PM
+            sSQL = sSQL & ", d.EQUIPMENT_TYPE, f.PO_NUMBER, CAR_NUMBER, b.H_S_CODE "
+
             sSQL = sSQL & "FROM TBL_BOIINFO a LEFT OUTER JOIN "
             sSQL = sSQL & "(SELECT t1.*,t2.ITEM_NUMBER,t2.ORIGIN_CONTRY , t2.AMOUNT, "
             sSQL = sSQL & "t2.TAX_VALUE, t2.VAT_VALUE, t2.TAX_RAT_PERCENT,t2.H_S_CODE ,t2.INVOICE_NUMBER,t2.INVOICE_ITEM "
