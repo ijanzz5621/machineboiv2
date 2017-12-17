@@ -8,71 +8,69 @@
 
     <div class="row">
 
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;">  
-            BOI No#          
-        </div>
         <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:TextBox ID="txtBOINo" runat="server" CssClass="form-control" ReadOnly="false" MaxLength="100"></asp:TextBox>
+            BOI No# <br />
+            <asp:DropDownList ID="ddlBOINumber" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                <asp:ListItem Text="" Value=""></asp:ListItem>
+            </asp:DropDownList>
         </div>
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;"> 
-            Import Date           
-        </div>
+
         <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:TextBox ID="txtImportDate" runat="server" CssClass="form-control datepicker" ReadOnly="false" MaxLength="50" data-date-format="yyyy-mm-dd"></asp:TextBox>
-        </div>        
+            Goods Type <br />
+            <asp:DropDownList ID="ddlGoodsType" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                <asp:ListItem Text="" Value=""></asp:ListItem>
+            </asp:DropDownList>
+        </div>
+
+        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
+            XML Type <br />
+            <asp:DropDownList ID="ddlXmlType" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                <asp:ListItem Text="" Value=""></asp:ListItem>
+            </asp:DropDownList>
+        </div>
+
+        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
+            Equipment Type <br />
+            <asp:DropDownList ID="ddlEquipmentType" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                <asp:ListItem Text="" Value=""></asp:ListItem>
+            </asp:DropDownList>
+        </div>
 
     </div>
-
     <div class="row">
 
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;">  
-            Invoice No#          
-        </div>
         <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:TextBox ID="txtInvoiceNo" runat="server" CssClass="form-control" ReadOnly="false" MaxLength="100"></asp:TextBox>
-        </div>
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;"> 
-            Description           
-        </div>
+            Import Date From <br />
+            <asp:TextBox ID="txtImportDateFrom" runat="server" CssClass="form-control datepicker" ReadOnly="false" MaxLength="50" data-date-format="yyyy-mm-dd"></asp:TextBox>
+        </div> 
+        
         <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" ReadOnly="false" MaxLength="50"></asp:TextBox>
-        </div>        
+            Import Date To <br />
+            <asp:TextBox ID="txtImportDateTo" runat="server" CssClass="form-control datepicker" ReadOnly="false" MaxLength="50" data-date-format="yyyy-mm-dd"></asp:TextBox>
+        </div> 
 
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;">  
-            Equipment ID         
-        </div>
         <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:TextBox ID="txtEquipmentId" runat="server" CssClass="form-control" ReadOnly="false" TextMode="Number"></asp:TextBox>
-        </div>
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;"> 
-            Asset Tag           
-        </div>
+            Reamining Day From <br />
+            <asp:TextBox ID="txtRemainDayFrom" runat="server" CssClass="form-control" ReadOnly="false" TextMode="Number"></asp:TextBox>
+        </div> 
+        
         <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:TextBox ID="txtAssetTag" runat="server" CssClass="form-control" ReadOnly="false" MaxLength="10"></asp:TextBox>
-        </div>        
+            Remaining Day To <br />
+            <asp:TextBox ID="txtRemainDayTo" runat="server" CssClass="form-control" ReadOnly="false" TextMode="Number"></asp:TextBox>
+        </div> 
 
-    </div>  
+    </div>   
     
     <div class="row">
 
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;">  
-            Valid Date         
-        </div>
-        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            <asp:TextBox ID="txtValidDate" runat="server" CssClass="form-control datepicker" ReadOnly="false" MaxLength="50" data-date-format="yyyy-mm-dd"></asp:TextBox>
-        </div>
-        <div class="col-md-1 col-sm-2" style="margin-top:10px;"> 
-            &nbsp;          
-        </div>
-        <div class="col-md-2 col-sm-4" style="margin-top:10px;">
-            &nbsp;
-        </div>        
+        <div class="col-md-6 col-sm-12" style="margin-top:10px;">
 
-    </div>  
+            Car Number, PO, Description, Asset Tag, Serial No, Equipment ID, Ship From, Invoice No, Doc No, Job No <br />
+            <asp:TextBox ID="txtMultiFilter" runat="server" CssClass="form-control" ReadOnly="false" MaxLength="100"></asp:TextBox>
+
+        </div>
+
+    </div>
 
     <div class="row">
 
@@ -128,7 +126,9 @@
                     <asp:BoundField DataField="EQUIPMENT_TYPE" HeaderText="Equip Type" />    
                     <asp:BoundField DataField="REMAINING_DAY" HeaderText="Remaining Day" />    
                     <asp:BoundField DataField="REMAINING_COST" HeaderText="Remaining Cost (THB)" DataFormatString="{0:#,##0.00}" />           
-                    <asp:BoundField DataField="REMAINING_DUTY" HeaderText="Remaining Duty (THB)" DataFormatString="{0:#,##0.00}" />           
+                    <asp:BoundField DataField="REMAINING_DUTY" HeaderText="Remaining Duty (THB)" DataFormatString="{0:#,##0.00}" />   
+                    <asp:BoundField DataField="PO_NUMBER" HeaderText="PO No#" />  
+                    <asp:BoundField DataField="CAR_NUMBER" HeaderText="Car No#" />  
                     <asp:TemplateField HeaderText="Invoice File">
                         <ItemTemplate>
                             <asp:HiddenField ID="hidRawFileInvoice" Value='<%# Eval("download_inv").ToString() %>' runat="server" />
