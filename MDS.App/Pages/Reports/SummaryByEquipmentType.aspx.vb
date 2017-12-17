@@ -32,20 +32,89 @@ Public Class SummaryByEquipmentType
 
                 sSQL = "select b.EQUIPMENT_TYPE "
 
-                For Each row As DataRow In dsResult.Tables(0).Rows
+                If boiNumber <> "" Then
 
-                    sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & row("BOI_NUMBER").ToString & "', 1 ) ) """ & row("BOI_NUMBER").ToString & """ "
+                    Dim strBOI As String() = boiNumber.Split(",")
+                    For Each boi As String In strBOI
+                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & boi & "', 1 ) ) """ & boi & """ "
+                    Next
+                Else
 
-                Next
+                    For Each row As DataRow In dsResult.Tables(0).Rows
+                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & row("BOI_NUMBER").ToString & "', 1 ) ) """ & row("BOI_NUMBER").ToString & """ "
+                    Next
+
+                End If
 
                 sSQL = sSQL & "from TBL_BOIINFO a, V_EQUIPMENT b "
                 sSQL = sSQL & "where a.invoice_number = b.invoice_no and a.invoice_item = b.invoice_no_item "
+
+                If equipmentType <> "" Then
+                    sSQL = sSQL & "and b.EQUIPMENT_TYPE = '" & equipmentType & "' "
+                End If
+
+                If statusCode <> "" Then
+                    sSQL = sSQL & "and b.STATUS_CODE = '" & statusCode & "' "
+                End If
+
                 sSQL = sSQL & "group by b.EQUIPMENT_TYPE "
                 sSQL = sSQL & "order by b.EQUIPMENT_TYPE"
 
                 dsResult = oOra.OraExecuteQuery(sSQL, cnnOra)
 
             End If
+
+        Catch ex As Exception
+
+            Dim errorMsg As String = ex.Message
+
+        Finally
+
+            CloseConnection()
+
+        End Try
+
+        Return JsonConvert.SerializeObject(dsResult.Tables(0))
+
+    End Function
+
+    <WebMethod>
+    Public Shared Function GetFilterEquipmentType() As Object
+
+        Dim dsResult As DataSet = New DataSet
+        Try
+
+            GetAppConfig()
+            OpenConnection()
+
+            Dim sSQL = "select distinct EQUIPMENT_TYPE from V_EQUIPMENT order by EQUIPMENT_TYPE"
+            dsResult = oOra.OraExecuteQuery(sSQL, cnnOra)
+
+        Catch ex As Exception
+
+            Dim errorMsg As String = ex.Message
+
+        Finally
+
+            CloseConnection()
+
+        End Try
+
+        Return JsonConvert.SerializeObject(dsResult.Tables(0))
+
+    End Function
+
+    <WebMethod>
+    Public Shared Function GetFilterStatusCode() As Object
+
+        Dim dsResult As DataSet = New DataSet
+        Try
+
+            GetAppConfig()
+            OpenConnection()
+
+            Dim sSQL = "select distinct STATUS_CODE from V_EQUIPMENT order by STATUS_CODE"
+            dsResult = oOra.OraExecuteQuery(sSQL, cnnOra)
 
         Catch ex As Exception
 

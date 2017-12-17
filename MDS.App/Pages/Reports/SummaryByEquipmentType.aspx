@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Report.Master" CodeBehind="SummaryByEquipmentType.aspx.vb" Inherits="MDS.App.SummaryByEquipmentType" %>
+﻿<%@ Page Title="Summary of Equipment Type" Language="vb" AutoEventWireup="false" MasterPageFile="~/Report.Master" CodeBehind="SummaryByEquipmentType.aspx.vb" Inherits="MDS.App.SummaryByEquipmentType" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -54,6 +54,9 @@
 
     <script>
 
+        loadFilterEquipmentType();
+        loadFilterStatusCode();
+
         $(document).ready(function () {
 
             $('#<%=btnSearch.ClientID%>').on('click', function (e) {
@@ -71,7 +74,7 @@
             //alert('Loading report....');
             $.ajax({
                 url: "SummaryByEquipmentType.aspx/GetListing",
-                data: "{ 'boiNumber': '', 'equipmentType': '', 'statusCode': ''}",
+                data: "{ 'boiNumber': '" + $("#<%=txtBOINumber.ClientID%>").val() + "', 'equipmentType': '" + $("#<%=ddlEquipmentType.ClientID%>").val() + "', 'statusCode': '" + $("#<%=ddlStatusCode.ClientID%>").val() + "'}",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -151,7 +154,67 @@
             window.open('/Pages/Reports/SummaryByEquipmentTypeDetails.aspx?EquipmentType=' + _equipmentType + '&BoiNo=' + _boiNo, '_blank');
         }
 
+        function loadFilterEquipmentType() {
 
+            $("#<%=ddlEquipmentType.ClientID%>").attr('disabled', true);
+
+            $.ajax({
+                url: "SummaryByEquipmentType.aspx/GetFilterEquipmentType",
+                //data: "{ '': ''}",
+                dataType: "json",
+                type: "POST",
+                async: true,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    //console.log(JSON.parse(data.d).length);
+
+                    if (JSON.parse(data.d).length > 0) {
+
+                        $.each(JSON.parse(data.d), function () {
+                            $("#<%=ddlEquipmentType.ClientID%>").append($("<option />").val(this.EQUIPMENT_TYPE).text(this.EQUIPMENT_TYPE));
+                        });
+
+                    }
+
+                    $("#<%=ddlEquipmentType.ClientID%>").removeAttr('disabled');
+                },
+                error: function (a, b, c) {
+                    console.log('error: ' + JSON.stringify(a));
+                }
+            });
+        }
+
+        function loadFilterStatusCode() {
+
+            $("#<%=ddlStatusCode.ClientID%>").attr('disabled', true);
+
+            $.ajax({
+                url: "SummaryByEquipmentType.aspx/GetFilterStatusCode",
+                //data: "{ '': ''}",
+                dataType: "json",
+                type: "POST",
+                async: true,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    //console.log(JSON.parse(data.d).length);
+
+                    if (JSON.parse(data.d).length > 0) {
+
+                        $.each(JSON.parse(data.d), function () {
+                            $("#<%=ddlStatusCode.ClientID%>").append($("<option />").val(this.STATUS_CODE).text(this.STATUS_CODE));
+                        });
+
+                    }
+
+                    $("#<%=ddlStatusCode.ClientID%>").removeAttr('disabled');
+                },
+                error: function (a, b, c) {
+                    console.log('error: ' + JSON.stringify(a));
+                }
+            });
+        }
 
     </script>
 
