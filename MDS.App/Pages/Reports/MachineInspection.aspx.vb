@@ -16,6 +16,7 @@ Public Class MachineInspection
             GetEquipmentTypeList()
             GetInspectionList()
             GetCERNumberList()
+            GetAddressList()
 
         End If
     End Sub
@@ -189,6 +190,34 @@ Public Class MachineInspection
 
     End Sub
 
+    Private Sub GetAddressList()
+
+        Try
+
+            GetAppConfig()
+            OpenConnection()
+
+            Dim sSQL = "select distinct address from TBL_BOIIMPORTENTRY where address IS NOT NULL"
+            Dim dsResult As DataSet = oOra.OraExecuteQuery(sSQL, cnnOra)
+
+            ddlAddress.DataSource = dsResult.Tables(0)
+            ddlAddress.DataTextField = "ADDRESS"
+            ddlAddress.DataValueField = "ADDRESS"
+            ddlAddress.DataBind()
+
+        Catch ex As Exception
+
+            Dim errorMsg As String = ex.Message
+            lblError.Text = errorMsg
+
+        Finally
+
+            CloseConnection()
+
+        End Try
+
+    End Sub
+
     Private Function GetListing(boiNo As String, xmlType As String, equipmentType As String, inspectionCode As String, address As String, cerNo As String, importDateFrom As String, ImportDateTo As String, ageFrom As String, ageTo As String, multiFilter As String) As DataSet
         Dim dsResult As DataSet = Nothing
         Try
@@ -237,10 +266,9 @@ Public Class MachineInspection
                 sSQL = sSQL & "And a.inspection_code = '" & inspectionCode & "' "
             End If
 
-            'address
-            'If address.Trim <> "" Then
-            '    sSQL = sSQL & " "
-            'End If
+            If address.Trim <> "" Then
+                sSQL = sSQL & "And b.address = '" & address & "' "
+            End If
 
             If cerNo.Trim <> "" Then
                 sSQL = sSQL & "And a.cer_number = '" & cerNo & "' "
