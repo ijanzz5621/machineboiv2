@@ -95,7 +95,7 @@
                         }
 
                         for (var key in tempData[0]) {
-                            //console.log(key);
+                            console.log(key);
                             if (key !== "EQUIPMENT_TYPE") {
                                 $('#tblListing thead tr').append("<td>" + key + "</td>");
                             }

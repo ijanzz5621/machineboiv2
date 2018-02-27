@@ -86,13 +86,14 @@
                 BackColor="White" BorderColor="#999999" 
                 BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical"
                 AllowPaging="True" PageSize="50" PagerSettings-Mode="NumericFirstLast" 
-                AutoGenerateColumns="False" ShowHeaderWhenEmpty="true" Font-Size="10px"   
+                AutoGenerateColumns="False" ShowHeaderWhenEmpty="true" Font-Size="10px" 
+                AllowSorting="true" OnSorting="gvListing_Sorting"
                 >
                 <AlternatingRowStyle BackColor="#f0f0f0" />
                 <Columns>
                     <%-- %><asp:BoundField DataField="BOI_NUMBER2" HeaderText="BOI No#" />--%>
                     <asp:BoundField DataField="BOI_NUMBER" HeaderText="BOI No#" />
-                    <asp:BoundField DataField="INVOICE_ITEM" HeaderText="Invoice Item" />
+                    <asp:BoundField DataField="INVOICE_ITEM" HeaderText="Invoice Item" SortExpression="INVOICE_ITEM" ItemStyle-BackColor="LightGray" />
                     <asp:BoundField DataField="DESCRIPTION" HeaderText="Description" />
                     <asp:BoundField DataField="asset_tag" HeaderText="Asset Tag" />
                     <asp:BoundField DataField="SERIAL_NO" HeaderText="Serial No#" />
@@ -102,12 +103,12 @@
                     <asp:BoundField DataField="GOOD_TYPE_DESC" HeaderText="Goods Type" />
                     <asp:BoundField DataField="MANUFACTURER_YEAR" HeaderText="Manufacturer Year" />
                     <asp:BoundField DataField="SHIP_FROM" HeaderText="Ship From" />
-                    <asp:BoundField DataField="IMPORT_DATE" HeaderText="Import Date" DataFormatString="{0:yyyy-MM-dd}" />
-                    <asp:BoundField DataField="INVOICE_NUMBER" HeaderText="Invoice No#" />
+                    <asp:BoundField DataField="IMPORT_DATE" HeaderText="Import Date" DataFormatString="{0:yyyy-MM-dd}" SortExpression="IMPORT_DATE" ItemStyle-BackColor="LightGray" />
+                    <asp:BoundField DataField="INVOICE_NUMBER" HeaderText="Invoice No#" SortExpression="INVOICE_NUMBER" ItemStyle-BackColor="LightGray" />
                     <asp:BoundField DataField="INVOICE_DATE" HeaderText="Invoice Date" DataFormatString="{0:yyyy-MM-dd}" />
                     <asp:BoundField DataField="DOCUMENT_NUMBER" HeaderText="Document No#" />
                     <asp:BoundField DataField="DOCUMENT_DATE" HeaderText="Document Date" DataFormatString="{0:yyyy-MM-dd}" />
-                    <asp:BoundField DataField="AMOUNT" HeaderText="Amount (THB)" DataFormatString="{0:c}" />
+                    <asp:BoundField DataField="AMOUNT" HeaderText="Amount (THB)" DataFormatString="{0:N2}" />
                     <asp:BoundField DataField="JOB_NUMBER" HeaderText="Job No#" />
                     <asp:BoundField DataField="XMLTYPE" HeaderText="XML Type" />  
                     <asp:BoundField DataField="EQUIPMENT_TYPE" HeaderText="Equipment Type" />

@@ -25,7 +25,7 @@ Public Class SummaryByEquipmentType
             GetAppConfig()
             OpenConnection()
 
-            Dim sSQL = "select distinct BOI_NUMBER FROM TBL_BOIINFO order by BOI_NUMBER"
+            Dim sSQL = "select distinct TRIM(BOI_NUMBER) as BOI_NUMBER FROM TBL_BOIINFO order by BOI_NUMBER"
             dsResult = oOra.OraExecuteQuery(sSQL, cnnOra)
 
             If dsResult.Tables.Count > 0 And dsResult.Tables(0).Rows.Count > 0 Then

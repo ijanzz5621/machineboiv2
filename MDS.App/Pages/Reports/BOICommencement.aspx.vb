@@ -232,7 +232,10 @@ Public Class BOICommencement
 
             dsResult = oOra.OraExecuteQuery(sSQL, cnnOra)
 
-            gvListing.DataSource = dsResult
+            'Save to session
+            Session("ListResult") = dsResult.Tables(0)
+
+            gvListing.DataSource = dsResult.Tables(0)
             gvListing.DataBind()
 
             If dsResult.Tables(0).Rows.Count > 0 Then
@@ -348,6 +351,52 @@ Public Class BOICommencement
 
 
     End Sub
+
+    Protected Sub gvListing_Sorting(sender As Object, e As GridViewSortEventArgs)
+
+        'Retrieve the table from the session object.
+        Dim dt = TryCast(Session("ListResult"), DataTable)
+
+        If dt IsNot Nothing Then
+
+            'Sort the data.
+            dt.DefaultView.Sort = e.SortExpression & " " & GetSortDirection(e.SortExpression)
+            gvListing.DataSource = Session("ListResult")
+            gvListing.DataBind()
+
+        End If
+
+    End Sub
+
+    Private Function GetSortDirection(ByVal column As String) As String
+
+        ' By default, set the sort direction to ascending.
+        Dim sortDirection = "ASC"
+
+        ' Retrieve the last column that was sorted.
+        Dim sortExpression = TryCast(ViewState("SortExpression"), String)
+
+        If sortExpression IsNot Nothing Then
+            ' Check if the same column is being sorted.
+            ' Otherwise, the default value can be returned.
+            If sortExpression = column Then
+                Dim lastDirection = TryCast(ViewState("SortDirection"), String)
+                If lastDirection IsNot Nothing _
+                  AndAlso lastDirection = "ASC" Then
+
+                    sortDirection = "DESC"
+
+                End If
+            End If
+        End If
+
+        ' Save new values in ViewState.
+        ViewState("SortDirection") = sortDirection
+        ViewState("SortExpression") = column
+
+        Return sortDirection
+
+    End Function
 
 #End Region
 
