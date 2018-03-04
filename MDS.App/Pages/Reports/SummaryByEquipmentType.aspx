@@ -39,6 +39,15 @@
 
         <div class="col-md-12">
 
+            <div id="divDynatable" class="dynatable">
+
+                <table id="dynatable">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+
+            </div>
+
             <table id="tblListing" class="table table-bordered table-responsive">
                 <thead>
                     <tr style="background-color:#444; color:#fff;">
@@ -71,7 +80,6 @@
 
         function loadReport() {
 
-            //alert('Loading report....');
             $.ajax({
                 url: "SummaryByEquipmentType.aspx/GetListing",
                 data: "{ 'boiNumber': '" + $("#<%=txtBOINumber.ClientID%>").val() + "', 'equipmentType': '" + $("#<%=ddlEquipmentType.ClientID%>").val() + "', 'statusCode': '" + $("#<%=ddlStatusCode.ClientID%>").val() + "'}",
@@ -80,7 +88,6 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
 
-                    //alert(data.d);
                     var tempData = JSON.parse(data.d);
 
                     // clear the table
@@ -150,8 +157,7 @@
         }
 
         function loadDetails(_equipmentType, _boiNo) {
-            //alert("Equipment Type: " + _equipmentType + ", BOI No#: " + _boiNo);
-            window.open('/Pages/Reports/SummaryByEquipmentTypeDetails.aspx?EquipmentType=' + _equipmentType + '&BoiNo=' + _boiNo, '_blank');
+            window.open('/Pages/Reports/SummaryByEquipmentTypeDetails.aspx?EquipmentType=' + _equipmentType + '&BoiNo=' + _boiNo.replace('_', ''), '_blank');
         }
 
         function loadFilterEquipmentType() {
@@ -166,8 +172,6 @@
                 async: true,
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-
-                    //console.log(JSON.parse(data.d).length);
 
                     if (JSON.parse(data.d).length > 0) {
 
@@ -197,8 +201,6 @@
                 async: true,
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-
-                    //console.log(JSON.parse(data.d).length);
 
                     if (JSON.parse(data.d).length > 0) {
 

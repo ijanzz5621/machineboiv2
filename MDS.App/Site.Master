@@ -11,7 +11,9 @@
 
     <link href="/Content/datepicker.css" rel="stylesheet" />
     <link href="/Content/jquery-confirm.min.css" rel="stylesheet" />
-    <link href="/Content/holdon.css" rel="stylesheet" />   
+    <link href="/Content/holdon.css" rel="stylesheet" />  
+    <%--<link href="/Content/datatables.min.css" rel="stylesheet" />--%>
+    <link href="/Content/jquery.dynatable.css" rel="stylesheet" />
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -113,6 +115,8 @@
     <script src="/Scripts/ie9/respond.min.js"></script>    
     <script src="/Scripts/jquery-confirm.min.js"></script>
     <script src="/Scripts/holdon.js"></script>
+    <%--<script src="/Scripts/datatables.min.js"></script>--%>
+    <script src="/Scripts/jquery.dynatable.js"></script>
 
 </body>
 </html>

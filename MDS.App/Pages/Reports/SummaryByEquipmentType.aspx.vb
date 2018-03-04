@@ -18,7 +18,7 @@ Public Class SummaryByEquipmentType
 
     <WebMethod>
     Public Shared Function GetListing(boiNumber As String, equipmentType As String, statusCode As String) As Object
-
+        Dim columnList = New List(Of String)()
         Dim dsResult As DataSet = New DataSet
         Try
 
@@ -26,22 +26,26 @@ Public Class SummaryByEquipmentType
             OpenConnection()
 
             Dim sSQL = "select distinct TRIM(BOI_NUMBER) as BOI_NUMBER FROM TBL_BOIINFO order by BOI_NUMBER"
+
             dsResult = oOra.OraExecuteQuery(sSQL, cnnOra)
 
             If dsResult.Tables.Count > 0 And dsResult.Tables(0).Rows.Count > 0 Then
 
                 sSQL = "select b.EQUIPMENT_TYPE "
+                columnList.Add("EQUIPMENT_TYPE")
 
                 If boiNumber <> "" Then
 
                     Dim strBOI As String() = boiNumber.Split(",")
                     For Each boi As String In strBOI
-                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & boi & "', 1 ) ) """ & boi & """ "
+                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & boi & "', 1 ) ) """ & boi & "_"" "
+                        columnList.Add(boi)
                     Next
                 Else
 
                     For Each row As DataRow In dsResult.Tables(0).Rows
-                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & row("BOI_NUMBER").ToString & "', 1 ) ) """ & row("BOI_NUMBER").ToString & """ "
+                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & row("BOI_NUMBER").ToString & "', 1 ) ) """ & row("BOI_NUMBER").ToString & "_"" "
+                        columnList.Add(row("BOI_NUMBER").ToString)
                     Next
 
                 End If
@@ -74,6 +78,11 @@ Public Class SummaryByEquipmentType
 
         End Try
 
+        Dim dataColumns As New DataColumns
+        dataColumns.Data = JsonConvert.SerializeObject(dsResult.Tables(0))
+        dataColumns.Columns = JsonConvert.SerializeObject(columnList)
+
+        'Return dataColumns
         Return JsonConvert.SerializeObject(dsResult.Tables(0))
 
     End Function
@@ -149,5 +158,29 @@ Public Class SummaryByEquipmentType
 
 #End Region
 
+
+End Class
+
+Public Class DataColumns
+
+    Private data_ As String
+    Public Property Data() As String
+        Get
+            Return data_
+        End Get
+        Set(ByVal value As String)
+            data_ = value
+        End Set
+    End Property
+
+    Private columns_ As String
+    Public Property Columns() As String
+        Get
+            Return columns_
+        End Get
+        Set(ByVal value As String)
+            columns_ = value
+        End Set
+    End Property
 
 End Class

@@ -36,12 +36,12 @@ Public Class SummaryByEquipmentModel
 
                     Dim strBOI As String() = boiNumber.Split(",")
                     For Each boi As String In strBOI
-                        sSQL = sSQL & ", SUM(""" & boi & """) AS """ & boi & """ "
+                        sSQL = sSQL & ", SUM(""" & boi & "_"") AS """ & boi & "_"" "
                     Next
                 Else
 
                     For Each row As DataRow In dsResult.Tables(0).Rows
-                        sSQL = sSQL & ", SUM(""" & row("BOI_NUMBER").ToString & """) AS """ & row("BOI_NUMBER").ToString & """ "
+                        sSQL = sSQL & ", SUM(""" & row("BOI_NUMBER").ToString & "_"") AS """ & row("BOI_NUMBER").ToString & "_"" "
                     Next
 
                 End If
@@ -62,12 +62,12 @@ Public Class SummaryByEquipmentModel
 
                     Dim strBOI As String() = boiNumber.Split(",")
                     For Each boi As String In strBOI
-                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & boi & "', 1 ) ) """ & boi & """ "
+                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & boi & "', 1 ) ) """ & boi & "_"" "
                     Next
                 Else
 
                     For Each row As DataRow In dsResult.Tables(0).Rows
-                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & row("BOI_NUMBER").ToString & "', 1 ) ) """ & row("BOI_NUMBER").ToString & """ "
+                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & row("BOI_NUMBER").ToString & "', 1 ) ) """ & row("BOI_NUMBER").ToString & "_"" "
                     Next
 
                 End If

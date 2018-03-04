@@ -80,7 +80,7 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
 
-                    //alert(data.d);
+                    alert(data.d);
                     var tempData = JSON.parse(data.d);
 
                     // clear the table
@@ -152,7 +152,7 @@
 
         function loadDetails(_equipmentModel, _boiNo) {
             //alert("Equipment Type: " + _equipmentType + ", BOI No#: " + _boiNo);
-            window.open('/Pages/Reports/SummaryByEquipmentModelDetails.aspx?EquipmentModel=' + _equipmentModel + '&BoiNo=' + _boiNo, '_blank');
+            window.open('/Pages/Reports/SummaryByEquipmentModelDetails.aspx?EquipmentModel=' + _equipmentModel + '&BoiNo=' + _boiNo.replace('_', ''), '_blank');
         }
 
         function loadFilterEquipmentType() {

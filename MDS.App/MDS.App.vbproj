@@ -154,10 +154,12 @@
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\datatables.min.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\holdon.css" />
     <Content Include="Content\jquery-confirm.css" />
     <Content Include="Content\jquery-confirm.min.css" />
+    <Content Include="Content\jquery.dynatable.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -234,6 +236,7 @@
     <Content Include="Pages\Setup\InvoiceInfo.aspx" />
     <Content Include="Pages\Setup\InvoiceInfoList.aspx" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\holdon.js" />
     <Content Include="Scripts\ie9\html5shiv.js" />
     <Content Include="Scripts\ie9\respond.min.js" />
@@ -244,6 +247,7 @@
     <Content Include="Scripts\jquery-confirm.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.dynatable.js" />
     <Content Include="Test.aspx" />
     <Content Include="x64\Oracle.ManagedDataAccessDTC.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
