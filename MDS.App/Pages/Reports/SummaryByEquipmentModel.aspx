@@ -15,7 +15,7 @@
         </div>
 
         <div class="col-md-2">
-            Equipment Type <br />
+            Equipment Model <br />
             <asp:DropDownList ID="ddlEquipmentModel" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                 <asp:ListItem Text="" Value=""></asp:ListItem>
             </asp:DropDownList>
@@ -80,7 +80,6 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
 
-                    alert(data.d);
                     var tempData = JSON.parse(data.d);
 
                     // clear the table

@@ -30,7 +30,7 @@ Public Class SummaryByEquipmentModel
 
             If dsResult.Tables.Count > 0 And dsResult.Tables(0).Rows.Count > 0 Then
 
-                sSQL = "select EQUIPMENT_MODEL, AREA "
+                sSQL = "select AREA, EQUIPMENT_MODEL "
 
                 If boiNumber <> "" Then
 
