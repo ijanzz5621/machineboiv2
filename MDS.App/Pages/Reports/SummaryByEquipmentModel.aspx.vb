@@ -89,7 +89,7 @@ Public Class SummaryByEquipmentModel
                 sSQL = sSQL & "WHEN 'STRIP MP' THEN 'STRIP' ELSE NVL(b.LINE,'?') END "
                 sSQL = sSQL & "ORDER BY 2,1) Q1 "
                 sSQL = sSQL & "GROUP BY Q1.EQUIPMENT_MODEL, Q1.AREA "
-                sSQL = sSQL & "ORDER BY Q1.EQUIPMENT_MODEL, Q1.AREA "
+                sSQL = sSQL & "ORDER BY Q1.AREA, Q1.EQUIPMENT_MODEL "
 
                 'sSQL = sSQL & "from TBL_BOIINFO a, V_EQUIPMENT b "
                 'sSQL = sSQL & "where a.invoice_number = b.invoice_no and a.invoice_item = b.invoice_no_item "

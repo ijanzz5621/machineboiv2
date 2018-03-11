@@ -248,6 +248,7 @@
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.dynatable.js" />
+    <Content Include="Scripts\table2excel.js" />
     <Content Include="Test.aspx" />
     <Content Include="x64\Oracle.ManagedDataAccessDTC.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -16,7 +16,7 @@ Public Class MachineInspection
             GetEquipmentTypeList()
             GetInspectionList()
             GetCERNumberList()
-            GetAddressList()
+            ' GetAddressList()
 
         End If
     End Sub
@@ -197,7 +197,7 @@ Public Class MachineInspection
             GetAppConfig()
             OpenConnection()
 
-            Dim sSQL = "select distinct address from TBL_BOIIMPORTENTRY where address IS NOT NULL"
+            Dim sSQL = "select distinct replace(replace(address,CHR(13),''),CHR(10),'') as address from TBL_BOIIMPORTENTRY where address IS NOT NULL"
             Dim dsResult As DataSet = oOra.OraExecuteQuery(sSQL, cnnOra)
 
             ddlAddress.DataSource = dsResult.Tables(0)

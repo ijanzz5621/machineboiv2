@@ -1,5 +1,32 @@
 ﻿<%@ Page Title="Summary of Equipment Type" Language="vb" AutoEventWireup="false" MasterPageFile="~/Report.Master" CodeBehind="SummaryByEquipmentType.aspx.vb" Inherits="MDS.App.SummaryByEquipmentType" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+    <style>
+
+        .paging{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            margin-bottom: 15px;
+        }
+
+        .paging li {
+            display: inline-block;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .selected {
+            font-weight: bold;
+            
+        }
+
+        .selected a {
+            color:#000000 !important;
+        }
+
+    </style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -37,16 +64,11 @@
 
     <div class="row" style="margin-top:15px;">
 
+        <div id="divTablePaging" class="col-md-12">
+            <ul id="ulTablePaging" class="paging"></ul>
+        </div>
+
         <div class="col-md-12">
-
-            <div id="divDynatable" class="dynatable">
-
-                <table id="dynatable">
-                    <thead></thead>
-                    <tbody></tbody>
-                </table>
-
-            </div>
 
             <table id="tblListing" class="table table-bordered table-responsive">
                 <thead>
@@ -63,6 +85,11 @@
 
     <script>
 
+        var gData = [];
+        var gTotalRecords = 0;
+        var gCurrentPage = 1;
+        var gItemPerPage = 20;
+
         loadFilterEquipmentType();
         loadFilterStatusCode();
 
@@ -78,6 +105,11 @@
 
         });
 
+        function changePage(_page) {
+            gCurrentPage = _page;
+            displayReport(gData);
+        } 
+
         function loadReport() {
 
             $.ajax({
@@ -89,12 +121,24 @@
                 success: function (data) {
 
                     var tempData = JSON.parse(data.d);
+                    gData = tempData;
 
                     // clear the table
                     $('#tblListing thead tr').html("");
                     $('#tblListing tbody').html("");
 
+                    // clear the paging
+                    $('#ulTablePaging').empty();
+
                     if (tempData.length > 0) {
+
+                        // ********************** PAGING ***********************
+                        gTotalRecords = tempData.length;
+                        // alert("Total Records: " + gTotalRecords);
+                        for (var i = 1; i < ((gTotalRecords % gItemPerPage) > 0 ? ((gTotalRecords / gItemPerPage)+1) : (gTotalRecords / gItemPerPage)); i++) {
+                            $('#ulTablePaging').append("<li class='" + ((gCurrentPage == i) ? "selected" : "") + "'><a onclick='changePage(\"" + i + "\"); return false;'>" + i + "<a></li>")
+                        }
+
                         for (var key in tempData[0]) {
                             //console.log(key);
                             if (key === "EQUIPMENT_TYPE")
@@ -105,41 +149,13 @@
                             console.log(key);
                             if (key !== "EQUIPMENT_TYPE") {
                                 $('#tblListing thead tr').append("<td>" + key + "</td>");
-                            }
-                                
+                            }    
                         }
 
-                        var row = "";
-                        var rowCount = 0;
-                        $.each(tempData, function (key, val) {
-
-                            var keyName = "";
-                            var rowColor = "transparent";
-                            if (rowCount % 2 === 0)
-                                rowColor = "#fff";
-
-                            row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "'>";
-                            $.each(val, function (_, text) {
-                                if (_ === "EQUIPMENT_TYPE") {
-                                    keyName = text;
-                                    row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
-                                }
-                            });
-
-                            $.each(val, function (_, text) {
-                                if (_ !== "EQUIPMENT_TYPE") {
-                                    row = row + "<td" + ((text === null || text === 0) ? "" : " style='background-color:#ACECFF; text-align:center;font-weight:bold;'") + ">" + ((text === null || text === 0) ? "" : "<a href='#' onclick='loadDetails(\"" + keyName + "\", \"" + _ + "\");'>" + text + "</a>") + "</td>";
-                                }
-                            });
-
-                            row = row + "</tr>";
-
-                            rowCount++;
-                        });
-                        $('#tblListing tbody').append(row);
+                        displayReport(gData);
 
                     } else {
-                        //showPopupMessage("No data found!");
+                        alert('No record found!');
                     }
 
                 },
@@ -154,6 +170,51 @@
                 }
             });
 
+        }
+
+        function displayReport(tempData) {
+
+            $('#ulTablePaging li').removeClass("selected");
+            $('#ulTablePaging li:contains("' + gCurrentPage + '")').addClass("selected");
+
+            $('#tblListing tbody').html("");
+
+            // *********************** DATA ROW ***********************
+            var firstPage = ((gCurrentPage - 1) * gItemPerPage) + 1;
+            var lastPage = firstPage + (gItemPerPage - 1);
+            // alert("First page: " + firstPage + ", Last Page: " + lastPage);
+
+            var row = "";
+            var rowCount = 0;
+            $.each(tempData, function (key, val) {
+
+                if (rowCount + 1 >= firstPage && rowCount + 1 <= lastPage) {
+
+                    var keyName = "";
+                    var rowColor = "transparent";
+                    if (rowCount % 2 === 0)
+                        rowColor = "#fff";
+
+                    row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "'>";
+                    $.each(val, function (_, text) {
+                        if (_ === "EQUIPMENT_TYPE") {
+                            keyName = text;
+                            row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
+                        }
+                    });
+
+                    $.each(val, function (_, text) {
+                        if (_ !== "EQUIPMENT_TYPE") {
+                            row = row + "<td" + ((text === null || text === 0) ? "" : " style='background-color:#ACECFF; text-align:center;font-weight:bold;'") + ">" + ((text === null || text === 0) ? "" : "<a href='#' onclick='loadDetails(\"" + keyName + "\", \"" + _ + "\");'>" + text + "</a>") + "</td>";
+                        }
+                    });
+
+                    row = row + "</tr>";
+                }
+
+                rowCount++;
+            });
+            $('#tblListing tbody').append(row);
         }
 
         function loadDetails(_equipmentType, _boiNo) {
