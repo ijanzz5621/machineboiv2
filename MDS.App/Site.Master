@@ -54,23 +54,25 @@
                 </div>
                 <ul class="nav navbar-nav nav-pills nav-stacked">
                     <li class="active"><a href="/Pages/MainPage.aspx">Home</a></li>
-                    <li class="dropdown">
+                    <li class="dropdown" runat="server" ID="liMaintenance">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Data Maintenance
                 <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/Pages/DataMaintenance/BOIList.aspx">BOI Info Listing</a></li>
                             <li><a href="/Pages/DataMaintenance/EntryImportList.aspx">Entry Import</a></li>
                             <li><a href="/Pages/DataMaintenance/SubEntryImportList.aspx">Sub-Entry Import</a></li>  
-                            <li><a href="/Pages/DataMaintenance/BuyOffList.aspx">Buy Off List</a></li>                           
+                            <li><a href="/Pages/DataMaintenance/BuyOffList.aspx">Buy Off List</a></li> 
+                            
                         </ul>
                     </li>
 
-                    <li class="dropdown">
+                    <li class="dropdown" runat="server" ID="liSetup">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Setup
                 <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/Pages/Setup/BOIList.aspx">BOI Master</a></li>
                             <li><a href="/Pages/Setup/InvoiceInfoList.aspx">Invoice Info</a></li>
+                            <%--<li><a href="/Pages/Setup/UserList.aspx">User</a></li> --%>
                         </ul>
                     </li>
 

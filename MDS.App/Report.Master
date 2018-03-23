@@ -63,6 +63,7 @@
                             <li><a href="/Pages/DataMaintenance/BOIList.aspx">BOI Info Listing</a></li>
                             <li><a href="/Pages/DataMaintenance/EntryImportList.aspx">Entry Import</a></li>
                             <li><a href="/Pages/DataMaintenance/SubEntryImportList.aspx">Sub-Entry Import</a></li>
+                            
                         </ul>
                     </li>
 
@@ -72,6 +73,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="/Pages/Setup/BOIList.aspx">BOI Master</a></li>
                             <li><a href="/Pages/Setup/InvoiceInfoList.aspx">Invoice Info</a></li>
+                            <li><a href="/Pages/Setup/UserList.aspx">User</a></li> 
                         </ul>
                     </li>
 

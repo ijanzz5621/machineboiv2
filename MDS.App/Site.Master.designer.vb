@@ -14,6 +14,24 @@ Option Explicit On
 Partial Public Class SiteMaster
     
     '''<summary>
+    '''liMaintenance control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents liMaintenance As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''liSetup control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents liSetup As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''lbtnLogout control.
     '''</summary>
     '''<remarks>

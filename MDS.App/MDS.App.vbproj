@@ -224,6 +224,7 @@
     <Content Include="Pages\DataMaintenance\BuyOffUpdate.aspx" />
     <Content Include="Pages\DataMaintenance\EntryImportList.aspx" />
     <Content Include="Pages\DataMaintenance\SubEntryImportList.aspx" />
+    <Content Include="Pages\Setup\UserList.aspx" />
     <Content Include="Pages\Reports\MachineScrap.aspx" />
     <Content Include="Pages\Reports\MachineInspection.aspx" />
     <Content Include="Pages\Reports\BOICommencement.aspx" />
@@ -429,6 +430,13 @@
     </Compile>
     <Compile Include="Pages\DataMaintenance\SubEntryImportList.aspx.vb">
       <DependentUpon>SubEntryImportList.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Setup\UserList.aspx.designer.vb">
+      <DependentUpon>UserList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Setup\UserList.aspx.vb">
+      <DependentUpon>UserList.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Pages\MainPage.aspx.designer.vb">
