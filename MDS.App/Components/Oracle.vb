@@ -27,7 +27,10 @@ Retry:
     Public Sub CloseOraConnection(ByRef cnnOra As OracleConnection)
         If Not IsNothing(cnnOra) Then
             If cnnOra.State <> ConnectionState.Closed Then cnnOra.Close()
-            cnnOra.Dispose()
+            If cnnOra IsNot Nothing Then
+                cnnOra.Dispose()
+            End If
+
         End If
 
         cnnOra = Nothing
@@ -40,6 +43,7 @@ Retry:
         Try
 Retry:
             cmd = New OracleCommand(sSQL, cn)
+            cmd.CommandTimeout = 600
             da = New OracleDataAdapter(cmd)
             Dim ds As DataSet = New DataSet()
             da.Fill(ds)
@@ -63,6 +67,7 @@ Retry:
         Try
 Retry:
             cmd = New OracleCommand(sSQL, cn)
+            cmd.CommandTimeout = 600
             'cmd.Connection.Open()
             cmd.ExecuteNonQuery()
             txn.Commit()

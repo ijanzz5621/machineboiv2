@@ -43,14 +43,14 @@
 
         <div class="col-md-2">
             Equipment Type <br />
-            <asp:DropDownList ID="ddlEquipmentType" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+            <asp:DropDownList ID="ddlEquipmentType" runat="server" CssClass="form-control" AppendDataBoundItems="true" multiple>
                 <asp:ListItem Text="" Value=""></asp:ListItem>
             </asp:DropDownList>
         </div>
 
         <div class="col-md-2">
             Status Code <br />
-            <asp:DropDownList ID="ddlStatusCode" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+            <asp:DropDownList ID="ddlStatusCode" runat="server" CssClass="form-control" AppendDataBoundItems="true" multiple>
                 <asp:ListItem Text="" Value=""></asp:ListItem>
             </asp:DropDownList>
         </div>
@@ -218,7 +218,7 @@
         }
 
         function loadDetails(_equipmentType, _boiNo) {
-            window.open('/Pages/Reports/SummaryByEquipmentTypeDetails.aspx?EquipmentType=' + _equipmentType + '&BoiNo=' + _boiNo.replace('_', ''), '_blank');
+            window.open('/Pages/Reports/SummaryByEquipmentTypeDetails.aspx?EquipmentType=' + _equipmentType + '&BoiNo=' + _boiNo.replace('[', '').replace(']', ''), '_blank');
         }
 
         function loadFilterEquipmentType() {
@@ -243,6 +243,7 @@
                     }
 
                     $("#<%=ddlEquipmentType.ClientID%>").removeAttr('disabled');
+                    $('#<%=ddlEquipmentType.ClientID%>').chosen();
                 },
                 error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));
@@ -272,6 +273,7 @@
                     }
 
                     $("#<%=ddlStatusCode.ClientID%>").removeAttr('disabled');
+                    $('#<%=ddlStatusCode.ClientID%>').chosen();
                 },
                 error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));

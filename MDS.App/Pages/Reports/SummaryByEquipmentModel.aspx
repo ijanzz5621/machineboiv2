@@ -43,14 +43,14 @@
 
         <div class="col-md-2">
             Equipment Model <br />
-            <asp:DropDownList ID="ddlEquipmentModel" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+            <asp:DropDownList ID="ddlEquipmentModel" runat="server" CssClass="form-control" AppendDataBoundItems="true" multiple>
                 <asp:ListItem Text="" Value=""></asp:ListItem>
             </asp:DropDownList>
         </div>
 
         <div class="col-md-2">
             Status Code <br />
-            <asp:DropDownList ID="ddlStatusCode" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+            <asp:DropDownList ID="ddlStatusCode" runat="server" CssClass="form-control" AppendDataBoundItems="true" multiple>
                 <asp:ListItem Text="" Value=""></asp:ListItem>
             </asp:DropDownList>
         </div>
@@ -224,7 +224,7 @@
 
         function loadDetails(_equipmentModel, _boiNo) {
             //alert("Equipment Type: " + _equipmentType + ", BOI No#: " + _boiNo);
-            window.open('/Pages/Reports/SummaryByEquipmentModelDetails.aspx?EquipmentModel=' + _equipmentModel + '&BoiNo=' + _boiNo.replace('_', ''), '_blank');
+            window.open('/Pages/Reports/SummaryByEquipmentModelDetails.aspx?EquipmentModel=' + _equipmentModel + '&BoiNo=' + _boiNo.replace('[', '').replace(']', ''), '_blank');
         }
 
         function loadFilterEquipmentType() {
@@ -251,6 +251,7 @@
                     }
 
                     $("#<%=ddlEquipmentModel.ClientID%>").removeAttr('disabled');
+                    $('#<%=ddlEquipmentModel.ClientID%>').chosen();
                 },
                 error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));
@@ -282,6 +283,7 @@
                     }
 
                     $("#<%=ddlStatusCode.ClientID%>").removeAttr('disabled');
+                    $('#<%=ddlStatusCode.ClientID%>').chosen();
                 },
                 error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));

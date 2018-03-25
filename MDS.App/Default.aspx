@@ -63,6 +63,28 @@
             </Scripts>
         </asp:ScriptManager>
 
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">MDS</a>
+                </div>
+                <ul class="nav navbar-nav nav-pills nav-stacked">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Pages/Reports/BOICommencement.aspx">BOI Commencement</a></li>
+                            <li><a href="/Pages/Reports/MachineInspection.aspx">Machine Inspection</a></li>
+                            <li><a href="/Pages/Reports/MachineScrap.aspx">Machine Scrap</a></li>  
+                            <li><a href="/Pages/Reports/SummaryByEquipmentType.aspx">Summary By Equipment Type</a></li>
+                            <li><a href="/Pages/Reports/SummaryByEquipmentModel.aspx">Summary By Equipment Model</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+            </div>
+        </nav>
+
         <div class="container body-content">
 
             <div class="jumbotron">

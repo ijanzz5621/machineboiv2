@@ -38,13 +38,13 @@ Public Class SummaryByEquipmentType
 
                     Dim strBOI As String() = boiNumber.Split(",")
                     For Each boi As String In strBOI
-                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & boi & "', 1 ) ) """ & boi & "_"" "
+                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & boi & "', 1 ) ) ""[" & boi & "]"" "
                         columnList.Add(boi)
                     Next
                 Else
 
                     For Each row As DataRow In dsResult.Tables(0).Rows
-                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & row("BOI_NUMBER").ToString & "', 1 ) ) """ & row("BOI_NUMBER").ToString & "_"" "
+                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & row("BOI_NUMBER").ToString & "', 1 ) ) ""[" & row("BOI_NUMBER").ToString & "]"" "
                         columnList.Add(row("BOI_NUMBER").ToString)
                     Next
 
@@ -53,12 +53,12 @@ Public Class SummaryByEquipmentType
                 sSQL = sSQL & "from TBL_BOIINFO a, V_EQUIPMENT b "
                 sSQL = sSQL & "where a.invoice_number = b.invoice_no and a.invoice_item = b.invoice_no_item "
 
-                If equipmentType <> "" Then
-                    sSQL = sSQL & "and b.EQUIPMENT_TYPE = '" & equipmentType & "' "
+                If equipmentType <> "" And equipmentType <> "null" Then
+                    sSQL = sSQL & "and b.EQUIPMENT_TYPE IN ('" & equipmentType.Replace(",", "','") & "') "
                 End If
 
-                If statusCode <> "" Then
-                    sSQL = sSQL & "and b.STATUS_CODE = '" & statusCode & "' "
+                If statusCode <> "" And statusCode <> "null" Then
+                    sSQL = sSQL & "and b.STATUS_CODE IN ('" & statusCode.Replace(",", "','") & "') "
                 End If
 
                 sSQL = sSQL & "group by b.EQUIPMENT_TYPE "

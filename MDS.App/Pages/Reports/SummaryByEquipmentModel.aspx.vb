@@ -36,12 +36,12 @@ Public Class SummaryByEquipmentModel
 
                     Dim strBOI As String() = boiNumber.Split(",")
                     For Each boi As String In strBOI
-                        sSQL = sSQL & ", SUM(""" & boi & "_"") AS """ & boi & "_"" "
+                        sSQL = sSQL & ", SUM(""[" & boi & "]"") AS ""[" & boi & "]"" "
                     Next
                 Else
 
                     For Each row As DataRow In dsResult.Tables(0).Rows
-                        sSQL = sSQL & ", SUM(""" & row("BOI_NUMBER").ToString & "_"") AS """ & row("BOI_NUMBER").ToString & "_"" "
+                        sSQL = sSQL & ", SUM(""[" & row("BOI_NUMBER").ToString & "]"") AS ""[" & row("BOI_NUMBER").ToString & "]"" "
                     Next
 
                 End If
@@ -62,12 +62,12 @@ Public Class SummaryByEquipmentModel
 
                     Dim strBOI As String() = boiNumber.Split(",")
                     For Each boi As String In strBOI
-                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & boi & "', 1 ) ) """ & boi & "_"" "
+                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & boi & "', 1 ) ) ""[" & boi & "]"" "
                     Next
                 Else
 
                     For Each row As DataRow In dsResult.Tables(0).Rows
-                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & row("BOI_NUMBER").ToString & "', 1 ) ) """ & row("BOI_NUMBER").ToString & "_"" "
+                        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & row("BOI_NUMBER").ToString & "', 1 ) ) ""[" & row("BOI_NUMBER").ToString & "]"" "
                     Next
 
                 End If
@@ -75,12 +75,12 @@ Public Class SummaryByEquipmentModel
                 sSQL = sSQL & "FROM TBL_BOIINFO a, V_EQUIPMENT b "
                 sSQL = sSQL & "WHERE a.INVOICE_NUMBER = b.INVOICE_NO AND a.INVOICE_ITEM = b.INVOICE_NO_ITEM "
 
-                If equipmentModel <> "" Then
-                    sSQL = sSQL & "and b.EQUIPMENT_MODEL = '" & equipmentModel & "' "
+                If equipmentModel <> "" And equipmentModel <> "null" Then
+                    sSQL = sSQL & "and b.EQUIPMENT_MODEL IN ('" & equipmentModel.Replace(",", "','") & "') "
                 End If
 
-                If statusCode <> "" Then
-                    sSQL = sSQL & "and b.STATUS_CODE = '" & statusCode & "' "
+                If statusCode <> "" And statusCode <> "null" Then
+                    sSQL = sSQL & "and b.STATUS_CODE IN ('" & statusCode.Replace(",", "','") & "') "
                 End If
 
                 sSQL = sSQL & "GROUP BY a.BOI_NUMBER, b.EQUIPMENT_MODEL, "
