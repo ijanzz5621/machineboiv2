@@ -179,13 +179,15 @@ Public Class MachineScrap
             sSQL = sSQL & "FROM ( "
             sSQL = sSQL & "SELECT c.BOI_NUMBER, concat(c.BOI_NUMBER, c.certificate_number) as BOI_NUMBER2, a.invoice_item, "
             sSQL = sSQL & "a.description, d.asset_tag, d.serial_no, d.equipment_id, 1 as QUANTITY, a.unit_code, a.good_type_code, e.good_type_desc, "
-            sSQL = sSQL & "d.manufacturer_year, b.import_date, a.invoice_number, a.invoice_date, a.document_number, a.document_date, b.amount, "
-            sSQL = sSQL & "b.tax_rat_percent, b.tax_value, b.vat_value, a.xmltype, b.job_number, "
+            sSQL = sSQL & "d.manufacturer_year, b.import_date, a.invoice_number, a.invoice_date, a.document_number, a.document_date, CAST(b.amount/a.QUANTITY AS NUMBER(15,2)) AMOUNT, "
+            sSQL = sSQL & "b.tax_rat_percent, CAST(b.tax_value/a.QUANTITY AS NUMBER(15,2)) tax_value, CAST(b.vat_value/a.QUANTITY AS NUMBER(15,2)) vat_value, a.xmltype, b.job_number, "
             sSQL = sSQL & "TO_CHAR(add_months(b.import_date, 60), 'yyyy-MM-dd') AS valid_date, d.equipment_type, b.ship_from, f.po_number, car_number, "
-            sSQL = sSQL & "TO_CHAR(1825 - ROUND(sysdate - import_date)) AS remaining_day, "
-            'sSQL = sSQL & "ROUND((b.amount + (b.amount * b.tax_rat_percent) + (b.amount * b.vat_value)) * (1825 - ROUND(sysdate - import_date)) / 1825, 2) AS REMAINING_COST, "
-            sSQL = sSQL & "ROUND((b.amount *  (1825 - ROUND(sysdate - import_date)) / 1825)) AS REMAINING_COST, "
-            sSQL = sSQL & "ROUND(b.vat_value + (((b.amount + (b.amount * b.tax_rat_percent) + (b.amount * b.vat_value)) * (1825 - ROUND(sysdate - import_date)) / 1825)*b.tax_rat_percent))  AS REMAINING_DUTY, "
+            'sSQL = sSQL & "TO_CHAR(1825 - ROUND(sysdate - import_date)) AS remaining_day, "
+            'sSQL = sSQL & "ROUND((b.amount *  (1825 - ROUND(sysdate - import_date)) / 1825)) AS REMAINING_COST, "
+            'sSQL = sSQL & "ROUND(b.vat_value + (((b.amount + (b.amount * b.tax_rat_percent) + (b.amount * b.vat_value)) * (1825 - ROUND(sysdate - import_date)) / 1825)*b.tax_rat_percent))  AS REMAINING_DUTY, "
+            sSQL = sSQL & "CASE WHEN (1825 - ROUND(sysdate - import_date)) > 0 THEN TO_CHAR(1825 - ROUND(sysdate - import_date)) ELSE '0' END AS remaining_day, "
+            sSQL = sSQL & "CASE WHEN (1825 - ROUND(sysdate - import_date)) > 0 THEN ROUND(((b.amount/a.QUANTITY) *  (1825 - ROUND(sysdate - import_date)) / 1825)) ELSE 0 END AS REMAINING_COST, "
+            sSQL = sSQL & "CASE WHEN (1825 - ROUND(sysdate - import_date)) > 0 THEN (ROUND(((b.amount/a.QUANTITY) *  (1825 - ROUND(sysdate - import_date)) / 1825)) *  b.tax_rat_percent)/100 ELSE 0 END  AS REMAINING_DUTY, "
             sSQL = sSQL & "replace(f.raw_filepath, 'D:\Application\AspNet\mds\Files\Invoice\', '') AS download_inv, "
             sSQL = sSQL & "replace(b.raw_filepath, 'D:\Application\AspNet\mds\Files\Entry\', '') AS download_import "
             sSQL = sSQL & "FROM TBL_BOIINFO a LEFT OUTER JOIN (SELECT t1.*,t2.ITEM_NUMBER,t2.ORIGIN_CONTRY , t2.AMOUNT, t2.TAX_VALUE, t2.VAT_VALUE, "
@@ -241,6 +243,8 @@ Public Class MachineScrap
 
 
             End If
+
+            sSQL = sSQL & "ORDER BY IMPORT_DATE, invoice_number, invoice_item "
 
             dsResult = oOra.OraExecuteQuery(sSQL, cnnOra)
 

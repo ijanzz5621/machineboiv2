@@ -171,7 +171,7 @@ Public Class BOICommencement
             Dim sSQL = "SELECT c.BOI_NUMBER, concat(c.BOI_NUMBER, c.certificate_number) as BOI_NUMBER2, c.certificate_number, a.invoice_item,a.description, d.asset_tag, d.serial_no, "
             sSQL = sSQL & "d.equipment_id, 1 as QUANTITY, a.unit_code, e.good_type_desc, d.manufacturer_year, b.ship_from, "
             sSQL = sSQL & "b.import_date, a.invoice_number, a.invoice_date, a.document_number, a.document_date, "
-            sSQL = sSQL & "b.amount, b.job_number, a.xmltype, "
+            sSQL = sSQL & "CAST(b.amount/a.QUANTITY AS NUMBER(15,2)) amount, b.job_number, a.xmltype, "
             sSQL = sSQL & "replace(f.raw_filepath, 'D:\Application\AspNet\mds\Files\Invoice\', '') AS download_inv, replace(b.raw_filepath, 'D:\Application\AspNet\mds\Files\Entry\', '') AS download_import "
 
             ' Added by Sharizan on 10Dec2017 1PM
@@ -229,6 +229,8 @@ Public Class BOICommencement
 
 
             End If
+
+            sSQL = sSQL & "ORDER BY b.IMPORT_DATE, a.invoice_number, a.invoice_item "
 
             dsResult = oOra.OraExecuteQuery(sSQL, cnnOra)
 
