@@ -63,9 +63,15 @@
         var gTotalRecords = 0;
         var gCurrentPage = 1;
         var gItemPerPage = 20;
+        var gNext = 0;
+        var gStartPaging = 1;
+        var gEndPaging = 1;
+        var gTotalPaging = 0;
+        var gTotalCheck = 0;
 
         var gEquipModel = '<%= Request.QueryString("EquipmentModel") %>';
         var gBoiNo = '<%= Request.QueryString("BoiNo") %>';
+        var gStatus = '<%= Request.QueryString("status") %>';
 
         $(document).ready(function () {
 
@@ -86,17 +92,56 @@
             displayReport(gData);
         } 
 
+        function displayPaging() {
+
+            $('#ulTablePaging').empty();
+
+            gStartPaging = 1 + gNext;
+            gCurrentPage = gStartPaging;
+
+            //alert(gTotalPaging);
+
+            if (gStartPaging + 10 < gTotalPaging)
+                gEndPaging = gStartPaging + (10 - 1);
+            else
+                gEndPaging = gTotalPaging;
+
+            if (gStartPaging > 1)
+                $('#ulTablePaging').append("<li id='" + i + "' class='" + ((gCurrentPage === i) ? "selected" : "") + "'><a onclick='prevPaging(); return false;'>Previous<a></li>")
+
+            for (var i = gStartPaging; i <= gEndPaging; i++) {
+                $('#ulTablePaging').append("<li id='" + i + "' class='" + ((gCurrentPage === i) ? "selected" : "") + "'><a onclick='changePage(\"" + i + "\"); return false;'>" + i + "<a></li>")
+            }
+
+            if (gEndPaging < gTotalPaging)
+                $('#ulTablePaging').append("<li id='" + i + "' class='" + ((gCurrentPage === i) ? "selected" : "") + "'><a onclick='nextPaging(); return false;'>Next<a></li>")
+        }
+
+        function nextPaging() {
+            gNext = gNext + 10;
+            displayPaging();
+            changePage(gCurrentPage);
+        }
+
+        function prevPaging() {
+            gNext = gNext - 10;
+            displayPaging();
+            changePage(gCurrentPage);
+        }
+
         function loadReportDetails() {
 
             $.ajax({
                 url: "SummaryByEquipmentModelDetails.aspx/GetListing",
-                data: "{ 'equipmentModel': '" + gEquipModel + "', 'boiNumber': '" + gBoiNo + "' }",
+                data: "{ 'equipmentModel': '" + gEquipModel + "', 'boiNumber': '" + gBoiNo + "', 'status':'" + gStatus + "' }",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
 
-                    //alert(data.d);
+                    gNext = 0;
+                    gCurrentPage = 1;
+                    gStartPaging = 1;
                     var tempData = JSON.parse(data.d);
                     gData = tempData;
 
@@ -111,10 +156,8 @@
 
                         // ********************** PAGING ***********************
                         gTotalRecords = tempData.length;
-                        // alert("Total Records: " + gTotalRecords);
-                        for (var i = 1; i < ((gTotalRecords % gItemPerPage) > 0 ? ((gTotalRecords / gItemPerPage)+1) : (gTotalRecords / gItemPerPage)); i++) {
-                            $('#ulTablePaging').append("<li class='" + ((gCurrentPage == i) ? "selected" : "") + "'><a onclick='changePage(\"" + i + "\"); return false;'>" + i + "<a></li>")
-                        }
+                        gTotalPaging = parseInt((gTotalRecords % gItemPerPage) > 0 ? ((gTotalRecords / gItemPerPage) + 1) : (gTotalRecords / gItemPerPage));
+                        displayPaging();
 
                         for (var key in tempData[0]) {
                             $('#tblListing thead tr').append("<td>" + key + "</td>");
@@ -143,7 +186,7 @@
         function displayReport(tempData) {
 
             $('#ulTablePaging li').removeClass("selected");
-            $('#ulTablePaging li:contains("' + gCurrentPage + '")').addClass("selected");
+            $('#ulTablePaging li[id="' + gCurrentPage + '"]').addClass("selected");
 
             $('#tblListing tbody').html("");
 
