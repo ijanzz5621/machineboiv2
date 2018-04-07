@@ -46,8 +46,8 @@ Public Class SummaryByEquipmentTypeDetails
             sSQL = sSQL & "left join TBL_BOIGOODTYPESCODE d ON a.GOOD_TYPE_CODE = d.GOOD_TYPE_CODE "
             sSQL = sSQL & "where b.EQUIPMENT_TYPE = '" & equipmentType & "' and a.BOI_NUMBER = '" & boiNumber & "'"
 
-            If status IsNot Nothing Then
-                sSQL = sSQL & "and b.STATUS_CODE IN (" & status.Replace(",", "','") & ") "
+            If status IsNot Nothing And status <> "null" Then
+                sSQL = sSQL & "and b.STATUS_CODE IN ('" & status.Replace(",", "','") & "') "
             End If
 
             dsResult = oOra.OraExecuteQuery(sSQL, cnnOra)

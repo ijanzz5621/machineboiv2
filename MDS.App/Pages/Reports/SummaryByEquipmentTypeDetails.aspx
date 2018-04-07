@@ -56,6 +56,18 @@
 
         </div>
 
+        <div id="divExport" class="col-md-12" style="display:none;">
+
+            <table id="tblExport" class="table table-bordered table-responsive">
+                <thead>
+                    <tr style="background-color:#444; color:#fff;">
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+        </div>
+
     </div>
 
     <script src="/Scripts/table2excel.js"></script>
@@ -83,13 +95,49 @@
 
             $('#btnExport').on('click', function (e) {
                 e.preventDefault();
-                $("#tblListing").table2excel({
-                    filename: "SummaryByEquipmentModelDetails.xls"
-                });
-
+                
+                exportData();
             });
 
         });
+
+        function exportData() {
+
+            if (gData.length > 0) {
+
+                for (var key in gData[0]) {
+                    $('#tblExport thead tr').append("<td>" + key + "</td>");
+                }
+
+                $('#tblExport tbody').html("");
+
+                var row = "";
+                var rowCount = 0;
+                $.each(gData, function (key, val) {
+
+                    var keyName = "";
+                    var rowColor = "transparent";
+                    if (rowCount % 2 === 0)
+                        rowColor = "#fff";
+
+                    row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "'>";
+                    $.each(val, function (_, text) {
+                        row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
+                    });
+                    row = row + "</tr>";
+
+                });
+
+                $('#tblExport tbody').append(row);
+
+                $("#tblExport").table2excel({
+                    filename: "SummaryByEquipmentModelDetails.xls"
+                });
+
+            } else {
+                alert("No data to export!");
+            }
+        }
 
         function changePage(_page) {
             gCurrentPage = _page;
