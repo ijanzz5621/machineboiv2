@@ -226,6 +226,7 @@
     <Content Include="Pages\DataMaintenance\BuyOffUpdate.aspx" />
     <Content Include="Pages\DataMaintenance\EntryImportList.aspx" />
     <Content Include="Pages\DataMaintenance\SubEntryImportList.aspx" />
+    <Content Include="Pages\Reports\SummaryByEquipmentModel_Bak20180409.aspx" />
     <Content Include="Pages\Setup\UserList.aspx" />
     <Content Include="Pages\Reports\MachineScrap.aspx" />
     <Content Include="Pages\Reports\MachineInspection.aspx" />
@@ -434,6 +435,13 @@
     </Compile>
     <Compile Include="Pages\DataMaintenance\SubEntryImportList.aspx.vb">
       <DependentUpon>SubEntryImportList.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Reports\SummaryByEquipmentModel_Bak20180409.aspx.designer.vb">
+      <DependentUpon>SummaryByEquipmentModel_Bak20180409.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Reports\SummaryByEquipmentModel_Bak20180409.aspx.vb">
+      <DependentUpon>SummaryByEquipmentModel_Bak20180409.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Pages\Setup\UserList.aspx.designer.vb">

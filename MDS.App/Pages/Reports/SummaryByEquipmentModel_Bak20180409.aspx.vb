@@ -2,7 +2,7 @@
 Imports Newtonsoft.Json
 Imports Oracle.ManagedDataAccess.Client
 
-Public Class SummaryByEquipmentModel
+Public Class SummaryByEquipmentModel_Bak20180409
     Inherits System.Web.UI.Page
 
     'Oracle
@@ -30,7 +30,7 @@ Public Class SummaryByEquipmentModel
 
             If dsResult.Tables.Count > 0 And dsResult.Tables(0).Rows.Count > 0 Then
 
-                sSQL = "select AREA, EQUIPMENT_TYPE, EQUIPMENT_MODEL "
+                sSQL = "select AREA, EQUIPMENT_MODEL "
 
                 If boiNumber <> "" Then
 
@@ -48,7 +48,7 @@ Public Class SummaryByEquipmentModel
 
                 sSQL = sSQL & "FROM "
                 sSQL = sSQL & "( "
-                sSQL = sSQL & "SELECT b.EQUIPMENT_MODEL, b.EQUIPMENT_TYPE, "
+                sSQL = sSQL & "SELECT b.EQUIPMENT_MODEL, "
                 sSQL = sSQL & "CASE b.LINE "
                 sSQL = sSQL & "WHEN 'AIPD' THEN 'SINGULATE' "
                 sSQL = sSQL & "WHEN 'MC' THEN 'SINGULATE' "
@@ -87,78 +87,13 @@ Public Class SummaryByEquipmentModel
                     sSQL = sSQL & "and b.STATUS_CODE IN ('" & statusCode.Replace(",", "','") & "') "
                 End If
 
-                sSQL = sSQL & "GROUP BY a.BOI_NUMBER, b.EQUIPMENT_MODEL, b.EQUIPMENT_TYPE, "
+                sSQL = sSQL & "GROUP BY a.BOI_NUMBER, b.EQUIPMENT_MODEL, "
                 sSQL = sSQL & "CASE b.LINE WHEN 'AIPD' THEN 'SINGULATE' WHEN 'MC' THEN 'SINGULATE' WHEN 'MP' THEN 'SINGULATE' "
                 sSQL = sSQL & "WHEN 'FLEX CELL' THEN 'SINGULATE' WHEN 'SMSC' THEN 'SINGULATE' WHEN 'STRIP MC' THEN 'STRIP' "
                 sSQL = sSQL & "WHEN 'STRIP MP' THEN 'STRIP' ELSE NVL(b.LINE,'?') END "
                 sSQL = sSQL & "ORDER BY 2,1) Q1 "
-                sSQL = sSQL & "GROUP BY Q1.EQUIPMENT_MODEL, Q1.AREA, Q1.EQUIPMENT_TYPE "
-                sSQL = sSQL & "ORDER BY Q1.AREA, Q1.EQUIPMENT_TYPE, Q1.EQUIPMENT_MODEL "
-
-                'sSQL = "select AREA, EQUIPMENT_MODEL "
-
-                'If boiNumber <> "" Then
-
-                '    Dim strBOI As String() = boiNumber.Split(",")
-                '    For Each boi As String In strBOI
-                '        sSQL = sSQL & ", SUM(""[" & boi & "]"") AS ""[" & boi & "]"" "
-                '    Next
-                'Else
-
-                '    For Each row As DataRow In dsResult.Tables(0).Rows
-                '        sSQL = sSQL & ", SUM(""[" & row("BOI_NUMBER").ToString & "]"") AS ""[" & row("BOI_NUMBER").ToString & "]"" "
-                '    Next
-
-                'End If
-
-                'sSQL = sSQL & "FROM "
-                'sSQL = sSQL & "( "
-                'sSQL = sSQL & "SELECT b.EQUIPMENT_MODEL, "
-                'sSQL = sSQL & "CASE b.LINE "
-                'sSQL = sSQL & "WHEN 'AIPD' THEN 'SINGULATE' "
-                'sSQL = sSQL & "WHEN 'MC' THEN 'SINGULATE' "
-                'sSQL = sSQL & "WHEN 'MP' THEN 'SINGULATE' "
-                'sSQL = sSQL & "WHEN 'FLEX CELL' THEN 'SINGULATE' "
-                'sSQL = sSQL & "WHEN 'SMSC' THEN 'SINGULATE' "
-                'sSQL = sSQL & "WHEN 'STRIP MC' THEN 'STRIP' "
-                'sSQL = sSQL & "WHEN 'STRIP MP' THEN 'STRIP' ELSE NVL(b.LINE,'?') END AREA "
-
-                'If boiNumber <> "" Then
-
-                '    Dim strBOI As String() = boiNumber.Split(",")
-                '    For Each boi As String In strBOI
-                '        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & boi & "', 1 ) ) ""[" & boi & "]"" "
-                '    Next
-                'Else
-
-                '    For Each row As DataRow In dsResult.Tables(0).Rows
-                '        sSQL = sSQL & ", count( decode( a.BOI_NUMBER, '" & row("BOI_NUMBER").ToString & "', 1 ) ) ""[" & row("BOI_NUMBER").ToString & "]"" "
-                '    Next
-
-                'End If
-
-                'sSQL = sSQL & "FROM TBL_BOIINFO a, V_EQUIPMENT b "
-                'sSQL = sSQL & "WHERE a.INVOICE_NUMBER = b.INVOICE_NO AND a.INVOICE_ITEM = b.INVOICE_NO_ITEM "
-
-                'If equipmentModel <> "" And equipmentModel <> "null" Then
-                '    sSQL = sSQL & "and b.EQUIPMENT_MODEL IN ('" & equipmentModel.Replace(",", "','") & "') "
-                'End If
-
-                'If equipmentType <> "" And equipmentType <> "null" Then
-                '    sSQL = sSQL & "and b.EQUIPMENT_TYPE IN ('" & equipmentType.Replace(",", "','") & "') "
-                'End If
-
-                'If statusCode <> "" And statusCode <> "null" Then
-                '    sSQL = sSQL & "and b.STATUS_CODE IN ('" & statusCode.Replace(",", "','") & "') "
-                'End If
-
-                'sSQL = sSQL & "GROUP BY a.BOI_NUMBER, b.EQUIPMENT_MODEL, "
-                'sSQL = sSQL & "CASE b.LINE WHEN 'AIPD' THEN 'SINGULATE' WHEN 'MC' THEN 'SINGULATE' WHEN 'MP' THEN 'SINGULATE' "
-                'sSQL = sSQL & "WHEN 'FLEX CELL' THEN 'SINGULATE' WHEN 'SMSC' THEN 'SINGULATE' WHEN 'STRIP MC' THEN 'STRIP' "
-                'sSQL = sSQL & "WHEN 'STRIP MP' THEN 'STRIP' ELSE NVL(b.LINE,'?') END "
-                'sSQL = sSQL & "ORDER BY 2,1) Q1 "
-                'sSQL = sSQL & "GROUP BY Q1.EQUIPMENT_MODEL, Q1.AREA "
-                'sSQL = sSQL & "ORDER BY Q1.AREA, Q1.EQUIPMENT_MODEL "
+                sSQL = sSQL & "GROUP BY Q1.EQUIPMENT_MODEL, Q1.AREA "
+                sSQL = sSQL & "ORDER BY Q1.AREA, Q1.EQUIPMENT_MODEL "
 
                 dsResult = oOra.OraExecuteQuery(sSQL, cnnOra)
 

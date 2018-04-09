@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Summary of Equipment Model" Language="vb" AutoEventWireup="false" MasterPageFile="~/Report.Master" CodeBehind="SummaryByEquipmentModel.aspx.vb" Inherits="MDS.App.SummaryByEquipmentModel" %>
+﻿<%@ Page Title="Summary of Equipment Model" Language="vb" AutoEventWireup="false" MasterPageFile="~/Report.Master" CodeBehind="SummaryByEquipmentModel_Bak20180409.aspx.vb" Inherits="MDS.App.SummaryByEquipmentModel_Bak20180409" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
@@ -244,30 +244,23 @@
 
                 if (rowCount + 1 >= firstPage && rowCount + 1 <= lastPage) {
 
-                    //var keyName = "";
-                    var equipmentModel = "";
-                    var equipmentType = "";
-
+                    var keyName = "";
                     var rowColor = "transparent";
                     if (rowCount % 2 === 0)
                         rowColor = "#fff";
 
                     row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "'>";
                     $.each(val, function (_, text) {
-
-                        if (_ === "EQUIPMENT_TYPE")
-                            equipmentType = text;
-                        else if (_ === "EQUIPMENT_MODEL")
-                            equipmentModel = text;
-                        
-                        if (_ === "EQUIPMENT_TYPE" || _ === "EQUIPMENT_MODEL" || _ === "AREA") {
+                        if (_ === "EQUIPMENT_MODEL")
+                            keyName = text;
+                        if (_ === "EQUIPMENT_MODEL" || _ === "AREA") {
                             row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
                         }
                     });
 
                     $.each(val, function (_, text) {
-                        if (_ !== "EQUIPMENT_TYPE" && _ !== "EQUIPMENT_MODEL" && _ !== "AREA") {
-                            row = row + "<td" + ((text === null || text === 0) ? "" : " style='background-color:#ACECFF; text-align:center;font-weight:bold;'") + ">" + ((text === null || text === 0) ? "" : "<a href='#' onclick='loadDetails(\"" + equipmentModel + "\", \"" + equipmentType + "\", \"" + _ + "\");'>" + text + "</a>") + "</td>";
+                        if (_ !== "EQUIPMENT_MODEL" && _ !== "AREA") {
+                            row = row + "<td" + ((text === null || text === 0) ? "" : " style='background-color:#ACECFF; text-align:center;font-weight:bold;'") + ">" + ((text === null || text === 0) ? "" : "<a href='#' onclick='loadDetails(\"" + keyName + "\", \"" + _ + "\");'>" + text + "</a>") + "</td>";
                         }
                     });
 
@@ -280,9 +273,9 @@
             $('#tblListing tbody').append(row);
         }
 
-        function loadDetails(_equipmentModel, _equipmentType, _boiNo) {
+        function loadDetails(_equipmentModel, _boiNo) {
             //alert("Equipment Type: " + _equipmentType + ", BOI No#: " + _boiNo);
-            window.open('/Pages/Reports/SummaryByEquipmentModelDetails.aspx?EquipmentModel=' + _equipmentModel + '&EquipmentType=' + _equipmentType + '&BoiNo=' + _boiNo.replace('[', '').replace(']', '') + '&status=' + $('#<%=ddlStatusCode.ClientID%>').val(), '_blank');
+            window.open('/Pages/Reports/SummaryByEquipmentModelDetails.aspx?EquipmentModel=' + _equipmentModel + '&BoiNo=' + _boiNo.replace('[', '').replace(']', '') + '&status=' + $('#<%=ddlStatusCode.ClientID%>').val(), '_blank');
         }
 
         function loadFilterEquipmentModel() {

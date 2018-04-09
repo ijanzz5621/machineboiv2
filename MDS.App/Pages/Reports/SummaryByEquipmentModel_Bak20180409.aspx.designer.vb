@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class SummaryByEquipmentModel
+Partial Public Class SummaryByEquipmentModel_Bak20180409
     
     '''<summary>
     '''lblError control.

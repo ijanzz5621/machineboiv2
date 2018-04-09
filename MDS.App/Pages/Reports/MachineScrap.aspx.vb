@@ -292,6 +292,9 @@ Public Class MachineScrap
             gvListing.AllowPaging = False
             Me.GetListing(ddlBOINumber.SelectedValue, ddlGoodsType.SelectedValue, ddlXmlType.SelectedValue, ddlEquipmentType.SelectedValue, txtImportDateFrom.Text, txtImportDateTo.Text, txtRemainDayFrom.Text, txtRemainDayTo.Text, txtMultiFilter.Text)
 
+            ' Hide the last column
+            gvListing.Columns(gvListing.Columns.Count - 1).Visible = False
+
             gvListing.HeaderRow.BackColor = System.Drawing.Color.White
             For Each cell As TableCell In gvListing.HeaderRow.Cells
                 cell.BackColor = gvListing.HeaderStyle.BackColor

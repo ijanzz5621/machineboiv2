@@ -282,9 +282,13 @@ Public Class BOICommencement
             gvListing.AllowPaging = False
             Me.GetListing(ddlBOINumber.SelectedValue, ddlGoodsType.SelectedValue, ddlXmlType.SelectedValue, ddlEquipmentType.SelectedValue, txtImportDateFrom.Text, txtImportDateTo.Text, txtMultiFilter.Text)
 
+            ' Hide the last column
+            gvListing.Columns(gvListing.Columns.Count - 1).Visible = False
+
             gvListing.HeaderRow.BackColor = System.Drawing.Color.White
             For Each cell As TableCell In gvListing.HeaderRow.Cells
                 cell.BackColor = gvListing.HeaderStyle.BackColor
+
             Next
             For Each row As GridViewRow In gvListing.Rows
                 row.BackColor = System.Drawing.Color.White
@@ -296,6 +300,7 @@ Public Class BOICommencement
                     End If
                     cell.CssClass = "textmode"
                     'cell.CssClass = "text"
+
                 Next
             Next
 
