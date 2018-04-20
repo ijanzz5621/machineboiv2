@@ -32,15 +32,6 @@ Partial Public Class SummaryByEquipmentModel
     Protected WithEvents txtBOINumber As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''ddlEquipmentModel control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlEquipmentModel As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
     '''ddlEquipmentType control.
     '''</summary>
     '''<remarks>
@@ -48,6 +39,15 @@ Partial Public Class SummaryByEquipmentModel
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlEquipmentType As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''ddlEquipmentModel control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlEquipmentModel As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''ddlStatusCode control.

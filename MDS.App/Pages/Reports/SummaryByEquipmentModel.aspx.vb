@@ -48,7 +48,7 @@ Public Class SummaryByEquipmentModel
 
                 sSQL = sSQL & "FROM "
                 sSQL = sSQL & "( "
-                sSQL = sSQL & "SELECT b.EQUIPMENT_MODEL, b.EQUIPMENT_TYPE, "
+                sSQL = sSQL & "SELECT b.EQUIPMENT_TYPE, b.EQUIPMENT_MODEL, "
                 sSQL = sSQL & "CASE b.LINE "
                 sSQL = sSQL & "WHEN 'AIPD' THEN 'SINGULATE' "
                 sSQL = sSQL & "WHEN 'MC' THEN 'SINGULATE' "

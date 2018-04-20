@@ -42,15 +42,15 @@
         </div>
 
         <div class="col-md-2">
-            Equipment Model <br />
-            <asp:DropDownList ID="ddlEquipmentModel" runat="server" CssClass="form-control" AppendDataBoundItems="true" multiple>
+            Equipment Type <br />
+            <asp:DropDownList ID="ddlEquipmentType" runat="server" CssClass="form-control" AppendDataBoundItems="true" multiple>
                 <asp:ListItem Text="" Value=""></asp:ListItem>
             </asp:DropDownList>
         </div>
 
         <div class="col-md-2">
-            Equipment Type <br />
-            <asp:DropDownList ID="ddlEquipmentType" runat="server" CssClass="form-control" AppendDataBoundItems="true" multiple>
+            Equipment Model <br />
+            <asp:DropDownList ID="ddlEquipmentModel" runat="server" CssClass="form-control" AppendDataBoundItems="true" multiple>
                 <asp:ListItem Text="" Value=""></asp:ListItem>
             </asp:DropDownList>
         </div>
@@ -194,13 +194,13 @@
                         // ********************** HEADER ***********************
                         for (var key in tempData[0]) {
                             //console.log(key);
-                            if (key === "EQUIPMENT_MODEL" || key === "AREA")
+                            if (key === "EQUIPMENT_TYPE" || key === "EQUIPMENT_MODEL" || key === "AREA")
                                 $('#tblListing thead tr').append("<td>" + key + "</td>");
                         }
 
                         for (var key in tempData[0]) {
                             //console.log(key);
-                            if (key !== "EQUIPMENT_MODEL" && key !== "AREA") {
+                            if (key !== "EQUIPMENT_TYPE" && key !== "EQUIPMENT_MODEL" && key !== "AREA") {
                                 $('#tblListing thead tr').append("<td>" + key + "</td>");
                             }
                                 
