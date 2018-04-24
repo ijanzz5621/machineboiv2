@@ -113,6 +113,7 @@ Public Class SummaryByEquipmentType
 
     End Function
 
+
     <WebMethod>
     Public Shared Function GetFilterStatusCode() As Object
 
