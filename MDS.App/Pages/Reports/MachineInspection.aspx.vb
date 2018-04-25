@@ -343,8 +343,9 @@ Public Class MachineInspection
             gvListing.AllowPaging = False
             Me.GetListing(ddlBOINumber.SelectedValue, ddlXmlType.SelectedValue, ddlEquipmentType.SelectedValue, ddlInspection.SelectedValue, ddlAddress.SelectedValue, ddlCERNo.SelectedValue, txtImportDateFrom.Text, txtImportDateTo.Text, txtMachineAgeFrom.Text, txtMachineAgeTo.Text, txtMultiFilter.Text)
 
-            ' Hide the last column
+            ' Hide the last 2 column
             gvListing.Columns(gvListing.Columns.Count - 1).Visible = False
+            gvListing.Columns(gvListing.Columns.Count - 2).Visible = False
 
             gvListing.HeaderRow.BackColor = System.Drawing.Color.White
             For Each cell As TableCell In gvListing.HeaderRow.Cells
