@@ -220,6 +220,7 @@
     <Content Include="images\login_bg.psd" />
     <Content Include="images\bg-cover.psd" />
     <Content Include="images\view.png" />
+    <Content Include="Modals\_BOITransfer.ascx" />
     <Content Include="Pages\ComingSoon.aspx" />
     <Content Include="Pages\DataMaintenance\BOIDetails.aspx" />
     <Content Include="Pages\DataMaintenance\BuyOffList.aspx" />
@@ -239,6 +240,7 @@
     <Content Include="Pages\Setup\BOIList.aspx" />
     <Content Include="Pages\Setup\InvoiceInfo.aspx" />
     <Content Include="Pages\Setup\InvoiceInfoList.aspx" />
+    <Content Include="Pages\Transaction\BOITransfer.aspx" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
@@ -348,6 +350,13 @@
     </Compile>
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Modals\_BOITransfer.ascx.designer.vb">
+      <DependentUpon>_BOITransfer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modals\_BOITransfer.ascx.vb">
+      <DependentUpon>_BOITransfer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -534,6 +543,13 @@
     </Compile>
     <Compile Include="Pages\Setup\InvoiceInfoList.aspx.vb">
       <DependentUpon>InvoiceInfoList.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Transaction\BOITransfer.aspx.designer.vb">
+      <DependentUpon>BOITransfer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Transaction\BOITransfer.aspx.vb">
+      <DependentUpon>BOITransfer.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Report.Master.designer.vb">

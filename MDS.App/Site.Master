@@ -14,6 +14,7 @@
     <link href="/Content/holdon.css" rel="stylesheet" />  
     <%--<link href="/Content/datatables.min.css" rel="stylesheet" />--%>
     <link href="/Content/jquery.dynatable.css" rel="stylesheet" />
+    <link href="/Content/chosen.min.css" rel="stylesheet" />
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -47,7 +48,7 @@
         </asp:ScriptManager>
 
         <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container container-fluid">
+            <div class="container-fluid">
 
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">MDS</a>
@@ -62,7 +63,7 @@
                             <li><a href="/Pages/DataMaintenance/EntryImportList.aspx">Entry Import</a></li>
                             <li><a href="/Pages/DataMaintenance/SubEntryImportList.aspx">Sub-Entry Import</a></li>  
                             <li><a href="/Pages/DataMaintenance/BuyOffList.aspx">Buy Off List</a></li> 
-                            
+                            <li><a href="/Pages/Transaction/BOITransfer.aspx">BOI Transfer (New)</a></li> 
                         </ul>
                     </li>
 
@@ -102,7 +103,7 @@
             </div>
         </nav>
 
-        <div class="container body-content">
+        <div class="body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />
@@ -119,6 +120,6 @@
     <script src="/Scripts/holdon.js"></script>
     <%--<script src="/Scripts/datatables.min.js"></script>--%>
     <script src="/Scripts/jquery.dynatable.js"></script>
-
+    <script src="/Scripts/chosen.jquery.min.js"></script>
 </body>
 </html>
