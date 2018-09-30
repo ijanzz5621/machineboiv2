@@ -23,6 +23,17 @@
 
                 </div>
 
+                <div class="row" style="margin-top:15px;">
+
+                    <div class="col-lg-4 col-md-4">
+                        BOI Number: 
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <input class="form-control" id="modalTxtBOINumber" type="text" maxlength="50">
+                    </div>
+
+                </div>
+
                 <div class="row">
 
                     <div class="col-md-12">
@@ -32,6 +43,8 @@
                                 <tr style="background-color:#343434; color:#ffffff; font-weight:bold;">
                                     <th>EQUIPMENT ID</th>
                                     <th>BOI NUMBER</th>
+                                    <th>INVOICE NUMBER</th>
+                                    <th>INVOICE ITEM</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>

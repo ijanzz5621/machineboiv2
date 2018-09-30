@@ -142,7 +142,7 @@
                                 transferBOI(function () {
 
                                     $('#modalBOITransfer').modal('hide');
-
+                                    loadListing();
                                 });
                             }
                         },
@@ -187,7 +187,7 @@
 
             $.ajax({
                 url: "BOITransfer.aspx/TransferBOI",
-                data: "{ 'dataList': '" + gSelectedIDs + "'}",
+                data: "{ 'dataList': '" + gSelectedIDs + "', 'boiDate':'" + $('#modalTxtBOIDate').val() + "', 'boiNumber':'" + $('#modalTxtBOINumber').val() + "'}",
                 dataType: "json",
                 type: "POST",
                 async: true,
@@ -210,7 +210,7 @@
             $('#modalList tbody').empty();
 
             $.each(gSelectedIDs, function (key, val) {
-                $('#modalList tbody').append("<tr><td>" + val.split("_")[0] + "</td><td>" + val.split("_")[1] + "</td></tr>");
+                $('#modalList tbody').append("<tr><td>" + val.split("_")[0] + "</td><td>" + val.split("_")[1] + "</td><td>" + val.split("_")[2] + "</td><td>" + val.split("_")[3] + "</td></tr>");
             });
         }
 
@@ -353,7 +353,7 @@
                     row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "'>";
 
                     // add checkbox
-                    row = row + "<td><input type='checkbox' class='chkItem' id='" + val.EQUIPMENT_ID + "_" + val.BOI_NUMBER + "' /></td>";
+                    row = row + "<td><input type='checkbox' class='chkItem' id='" + val.EQUIPMENT_ID + "_" + val.BOI_NUMBER + "_" + val.INVOICE_NUMBER + "_" + val.INVOICE_ITEM + "' /></td>";
 
                     $.each(val, function (_, text) {
                     //    if (_ === "EQUIPMENT_TYPE") {
